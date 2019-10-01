@@ -1,0 +1,67 @@
+{
+  "manifest": {
+    "name": "hyper-clean",
+    "version": "1.0.2",
+    "description": "A clean theme for hyper!",
+    "main": "index.js",
+    "author": {
+      "name": "Taylor Jones",
+      "email": "taylor.jones826@gmail.com",
+      "url": "tay1orjones.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/tay1orjones/hyper-clean.git"
+    },
+    "license": "MIT",
+    "keywords": [
+      "hyper",
+      "hyper-theme",
+      "terminal",
+      "term",
+      "theme",
+      "hyperterm",
+      "clean"
+    ],
+    "config": {
+      "commitizen": {
+        "path": "./lib/cz-emoji-adapter"
+      }
+    },
+    "bin": {
+      "validate-commit-msg": "./lib/validate-commit-msg.js"
+    },
+    "scripts": {
+      "commitmsg": "./lib/validate-commit-msg.js",
+      "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    },
+    "release": {
+      "analyzeCommits": "./lib/semantic-release-plugins/analyze"
+    },
+    "dependencies": {
+      "ibm-design-colors": "^2.0.3"
+    },
+    "devDependencies": {
+      "chalk": "^1.1.3",
+      "find-parent-dir": "^0.3.0",
+      "husky": "^0.13.3",
+      "semantic-release": "^6.3.6"
+    },
+    "_registry": "npm",
+    "_loc": "/home/ari/.hyper_plugins/cache/v1/npm-hyper-clean-1.0.2-58a4a3e8dc933e029f6528a2781f8df91c2f169c/package.json",
+    "readmeFilename": "readme.md",
+    "readme": "# hyper-clean [![Travis](https://img.shields.io/travis/tay1orjones/hyper-clean.svg?style=flat-square)](https://travis-ci.org/tay1orjones/hyper-clean)  [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)\n\n> A clean [Hyper](https://hyper.is) theme, with [IBM Design colors](https://github.com/IBM-Design/colors)\n\n![screenshot of hyper terminal themed with hyper-clean](https://github.com/tay1orjones/hyper-clean/raw/master/screenshot.png)\n\n## Install\n\n1. Edit your `~/.hyper.js` config file, add `hyper-clean` to your plugins array\n\n   ```js\n   plugins: ['hyper-clean'],\n   ```\n\n2. Restart Hyper\n\n## Related\n* The `.bash_prompt` shown in the screenshot above can be found in [my dotfiles repo](https://github.com/tay1orjones/dotfiles/tree/master/shell)\n* [awesome-hyper](https://github.com/bnb/awesome-hyper) - a list of delightful Hyper plugins, themes, and resources.\n",
+    "licenseText": "MIT License\n\nCopyright (c) 2017 Taylor Jones\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+  },
+  "artifacts": [],
+  "remote": {
+    "resolved": "https://registry.yarnpkg.com/hyper-clean/-/hyper-clean-1.0.2.tgz#58a4a3e8dc933e029f6528a2781f8df91c2f169c",
+    "type": "tarball",
+    "reference": "https://registry.yarnpkg.com/hyper-clean/-/hyper-clean-1.0.2.tgz",
+    "hash": "58a4a3e8dc933e029f6528a2781f8df91c2f169c",
+    "registry": "npm",
+    "packageName": "hyper-clean"
+  },
+  "registry": "npm",
+  "hash": "58a4a3e8dc933e029f6528a2781f8df91c2f169c"
+}

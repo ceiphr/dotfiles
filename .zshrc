@@ -22,7 +22,7 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -71,15 +71,8 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git 
-  tmux 
+  sudo 
   dnf 
-  cargo 
-  pip
-  pipenv
-  npm
-  django 
-  dotenv 
-  gitignore
   zsh-completions 
   zsh-syntax-highlighting
   zsh-autosuggestions
@@ -117,5 +110,16 @@ eval $(thefuck --alias)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# If rg is installed, use it as fzf command.
+if [[ -x "$(command -v "rg")" ]]; then
+	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+# Source .alias if present
+[[ -f "${HOME}/.alias" ]] && source ~/.alias
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
