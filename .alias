@@ -22,7 +22,6 @@ alias .....="cd ../../../.."
 alias tls="tmux ls"
 alias gitlog="git --no-pager log --date=local --format=\" * %h [%cd] %s\""
 alias gds="git diff --staged"
-alias glgg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 alias dot="git --git-dir=${HOME}/.dot --work-tree=${HOME}"
 alias open='xdg-open'
 alias ]='xdg-open'
@@ -33,6 +32,11 @@ alias vsp="tmux split-window -h"
 alias ":sp"="tmux split-window"
 alias ":vsp"="tmux split-window -h"
 alias glgg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+# Error catcher
+alias :q="cowsay -f tux Oof! You are not in vim."
+alias :w="cowsay -f tux Oof! You are not in vim."
+alias :wq="cowsay -f tux Oof! You are not in vim."
 
 # Use git completions for "dot" alias when using zsh
 [[ "${SHELL}" == "/bin/zsh" ]] && compdef dot=git

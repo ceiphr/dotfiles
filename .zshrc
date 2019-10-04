@@ -123,3 +123,6 @@ fi
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 alias dot='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# Startup command
+fortune | cowsay -f tux
