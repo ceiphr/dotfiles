@@ -32,6 +32,8 @@ alias vsp="tmux split-window -h"
 alias ":sp"="tmux split-window"
 alias ":vsp"="tmux split-window -h"
 alias glgg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+alias pvpn="sudo protonvpn"
+alias gccis="ssh ajb1233@andromeda.cs.rit.edu"
 
 # Error catcher
 alias :q="cowsay -f tux Oof! You are not in vim."
