@@ -1,3 +1,3 @@
 #!/bin/bash
-sleep 2
+sleep 5
 kdocker -i /home/ari/Applications/thunderbird.png thunderbird
