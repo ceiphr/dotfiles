@@ -1,9 +1,9 @@
 swipe:
   3:
     left:
-      command: 'xdotool key alt+Shift+Tab'
+      command: 'xdotool key xdotool key alt+Right'
     right:
-      command: 'xdotool key alt+Tab'
+      command: 'xdotool key xdotool key alt+Left'
     up:
       command: 'xdotool key super'
     down:
