@@ -1,7 +1,10 @@
 skip_global_compinit=1
 
 export ZDOTDIR="$HOME"/.config/zsh
-export ZSH="/home/${USER}/.oh-my-zsh"
+export ZSH="$XDG_DATA_HOME"/oh-my-zsh
+export OSH="${XDG_DATA_HOME}/oh-my-bash"
+export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 
 # Enable colors
 export CLICOLOR=1
@@ -27,9 +30,32 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 # Node
-export NODE_REPL_HISTORY=~/.node_history # Enable persistent REPL history for `node`.
-export NODE_REPL_HISTORY_SIZE='32768'    # Allow 32³ entries; the default is 1000.
-export NODE_REPL_MODE='sloppy'           # Use sloppy mode by default, matching web browsers.
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history # Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY_SIZE='32768'                       # Allow 32³ entries; the default is 1000.
+export NODE_REPL_MODE='sloppy'                              # Use sloppy mode by default, matching web browsers.
+
+# Rust
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+
+# Go
+export GOPATH="$XDG_DATA_HOME"/go
+
+# Gradle
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+
+# PostgreSQL
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+
+# Podman
+export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
+
+# AWS
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+
+# Android
+export ANDROID_HOME="$XDG_DATA_HOME"/android
 
 # Python -> Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'

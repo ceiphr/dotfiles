@@ -11,13 +11,6 @@ compdef _op op
 # Rust
 export PATH="$XDG_CONFIG_HOME"/cargo/bin:$PATH
 
-# Podman
-export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
-
-# AWS
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
-
 # NVM -> https://www.reddit.com/r/node/comments/4tg5jg/comment/d5ib9fs/?utm_source=share&utm_medium=web2x&context=3
 declare -a NODE_GLOBALS=($(find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq))
 
@@ -25,7 +18,7 @@ NODE_GLOBALS+=("node")
 NODE_GLOBALS+=("nvm")
 
 load_nvm() {
-    export NVM_DIR="$XDG_CONFIG_HOME"/nvm
+    export NVM_DIR="$XDG_DATA_HOME"/nvm
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
     nvm use --lts >/dev/null
 }
