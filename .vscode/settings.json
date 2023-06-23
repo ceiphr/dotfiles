@@ -1,0 +1,28 @@
+{
+    "shellcheck.enable": true,
+    "shellcheck.enableQuickFix": true,
+    "shellcheck.ignorePatterns": {
+        "**/*.zsh": true,
+        "**/*.zshrc": true,
+        "**/zshrc": true,
+        "**/*.zprofile": true,
+        "**/zprofile": true,
+        "**/*.zlogin": true,
+        "**/zlogin": true,
+        "**/*.zlogout": true,
+        "**/zlogout": true,
+        "**/*.zshenv": true,
+        "**/zshenv": true,
+        "**/*.zsh-theme": true,
+        "**/.ssh/config": true,
+        "**/*.inputrc": true
+    },
+    "shellcheck.exclude": ["1090", "1091"],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.shellcheck": true
+    },
+    "files.associations": {
+        "config": "shellscript",
+        "*.vim": "bat"
+    }
+}

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Note: These exports are intended only for interactive shells.
+#       So, they should be loaded in .zshrc, not .zshenv.
+
+# 1Password
+source "$XDG_CONFIG_HOME"/op/plugins.sh
+eval "$(op completion zsh)"
+compdef _op op
+
+# Rust
+export PATH="$XDG_CONFIG_HOME"/cargo/bin:$PATH
+
+# Podman
+export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
+
+# AWS
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+
+# NVM -> https://www.reddit.com/r/node/comments/4tg5jg/comment/d5ib9fs/?utm_source=share&utm_medium=web2x&context=3
+declare -a NODE_GLOBALS=($(find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq))
+
+NODE_GLOBALS+=("node")
+NODE_GLOBALS+=("nvm")
+
+load_nvm() {
+    export NVM_DIR="$XDG_CONFIG_HOME"/nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    nvm use --lts >/dev/null
+}
+
+for cmd in "${NODE_GLOBALS[@]}"; do
+    eval "function ${cmd} = { unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
+done
+
+# If rg is installed, use it as fzf command.
+if [[ -x "$(command -v "rg")" ]]; then
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi

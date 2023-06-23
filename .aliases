@@ -1,0 +1,155 @@
+#!/bin/bash
+# Based on: https://github.com/nicholastmosher/dotfiles/blob/master/.alias
+
+#############
+# CLI tools #
+#############
+
+# If user is not root
+if [ $UID -ne 0 ]; then
+	alias reboot='sudo reboot'
+	alias update='sudo dnf upgrade'
+fi
+
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+# Shortcuts
+alias c="clear"
+alias h="history"
+alias j="jobs -l"
+alias open='xdg-open'
+alias z="bg"
+alias g="git"
+alias dl="cd ~/Downloads"
+alias dr="cd ~/Drive"
+alias dt="cd ~/Desktop"
+alias dc="cd ~/Documents"
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Update
+alias update='sudo dnf upgrade; flatpak update; npm install npm -g; npm update -g'
+
+# IP addresses and network
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+
+# Git
+if is-executable git; then
+	alias gitlog="git --no-pager log --date=local --format=\" * %h [%cd] %s\""
+	alias gds="git diff --staged"
+	alias dot='git --git-dir=${HOME}/.dot --work-tree=${HOME}'
+	alias glgg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+fi
+
+# Tmux
+if is-executable tmux; then
+	alias tls="tmux ls"
+	alias sp="tmux split-window"
+	alias vsp="tmux split-window -h"
+	alias ":sp"="tmux split-window"
+	alias ":vsp"="tmux split-window -h"
+	tkl() {
+		tmux kill-session -t "$@"
+	}
+
+	# Assign tab bindings for fzf-tmux if installed.
+	is-executable fzf-tmux && alias fzf-tmux="fzf-tmux --bind=tab:up,btab:down"
+fi
+
+# Podman
+is-executable podman && alias docker=podman
+
+# MongoDB -> Store MongoDB data in ~/.mongodb/data
+is-executable mongod && alias mongo='mongod --dbpath ~/.mongodb/data'
+
+# Yarn -> Prevent yarn from opening browser on start
+is-executable yarn && alias yarn="BROWSER=none yarn"
+
+# ProtonVPN
+is-executable protonvpn && alias pvpn="protonvpn"
+
+# SVN
+is-executable svn && alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
+
+# Wget
+is-executable wget && alias wget=wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts'
+
+# Yarn
+is-executable yarn && yarn --use-yarnrc "$XDG_CONFIG_HOME"/yarn/config
+
+# Radian
+if is-executable radian; then
+	alias radian='/home/${USER}/.local/bin/radian'
+	alias r='/home/${USER}/.local/bin/radian'
+	alias R='/home/${USER}/.local/bin/radian'
+fi
+
+####################
+# CLI Enhancements #
+####################
+
+# List files with exa if installed, otherwise use ls.
+if is-executable exa; then
+	alias ls="exa"             # Use exa if installed.
+	alias l="exa -labh --git"  # List in long format, include dotfiles.
+	alias la="exa -labh --git" # List in long format, include dotfiles.
+	alias al="exa -labh --git" # List in long format, include dotfiles.
+else
+	alias ls="ls --color"      # Force color for ls.
+	alias l="ls -lah --color"  # List in long format, include dotfiles.
+	alias la="ls -lah --color" # List in long format, include dotfiles.
+	alias al="ls -lah --color" # List in long format, include dotfiles.
+fi
+
+# Use colordiff if installed.
+is-executable colordiff && alias diff='colordiff'
+
+############
+# GUI apps #
+############
+
+# Browsers
+is-executable google-chrome-stable && alias chrome="google-chrome-stable"
+is-executable firefox && alias ff="firefox"
+
+# File management
+is-executable "nautilus" &&
+	alias files="(nautilus -w . </dev/null &>/dev/null &)"
+
+# VSCode
+if is-executable code; then
+	# Use Wayland backend.
+	code() {
+		(/usr/bin/code --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WaylandWindowDecorations "$1" </dev/null &>/dev/null &)
+	}
+
+	# Allowing for custom CSS.
+	alias chown-code='sudo chown -R $(whoami) /usr/share/code/ /usr/bin/code'
+fi
+
+#############
+# Utilities #
+#############
+
+# Error catcher
+if is-executable cowsay; then
+	alias :q="cowsay -f tux Oof! You are not in vim."
+	alias :w="cowsay -f tux Oof! You are not in vim."
+	alias :wq="cowsay -f tux Oof! You are not in vim."
+fi
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload='exec ${SHELL} -l'
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
