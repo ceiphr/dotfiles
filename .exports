@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # 1Password
-source "$XDG_CONFIG_HOME"/op/plugins.sh
-eval "$(op completion zsh)"
-compdef _op op
+if [[ -f "$XDG_CONFIG_HOME"/op/op.sh ]]; then
+    source "$XDG_CONFIG_HOME"/op/plugins.sh
+    eval "$(op completion zsh)"
+    compdef _op op
+fi
 
 # NVM -> https://www.reddit.com/r/node/comments/4tg5jg/comment/d5ib9fs/?utm_source=share&utm_medium=web2x&context=3
 declare -a NODE_GLOBALS=($(find "$XDG_DATA_HOME"/nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq))

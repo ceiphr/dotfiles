@@ -82,7 +82,7 @@ function install() {
     # Install fzf
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing fzf..."
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf >/dev/null 2>&1
-    ~/.fzf/install --bin >/dev/null 2>&1
+    ~/.fzf/install --all >/dev/null 2>&1
 
     # Install nvm
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing nvm..."
