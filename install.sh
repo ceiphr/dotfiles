@@ -103,6 +103,11 @@ function install() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing plugins..."
     install_plugins
 
+    # Change shell to zsh
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Changing shell to zsh..."
+    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+    sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1
+
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done. Reload your terminal."
 }
 
