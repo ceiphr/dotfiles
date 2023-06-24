@@ -86,8 +86,8 @@ function install() {
 
     # Install fzf
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing fzf..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --bin
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf >/dev/null 2>&1
+    ~/.fzf/install --all >/dev/null 2>&1 || error "Unable to install fzf. Try again."
 
     # Install nvm
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing nvm..."
