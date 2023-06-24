@@ -15,7 +15,8 @@
         "**/zshenv": true,
         "**/*.zsh-theme": true,
         "**/.ssh/config": true,
-        "**/*.inputrc": true
+        "**/inputrc": true,
+        "**/config": true
     },
     "shellcheck.exclude": ["1071", "1090", "1091"],
     "editor.codeActionsOnSave": {
@@ -23,6 +24,9 @@
     },
     "files.associations": {
         "config": "shellscript",
+        "inputrc": "shellscript",
+        ".*": "shellscript",
+        "*.dirs": "properties",
         "*.vim": "bat"
     }
 }
