@@ -12,8 +12,13 @@ function is-executable() {
 # If user is not root
 if [ $UID -ne 0 ]; then
 	alias reboot='sudo reboot'
-	alias update='sudo dnf upgrade'
 fi
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Update
+alias update='sudo dnf upgrade; flatpak update; npm install npm -g; npm update -g'
 
 # Navigation
 alias ..="cd .."
@@ -34,12 +39,6 @@ alias dl="cd ~/Downloads"
 alias dr="cd ~/Drive"
 alias dt="cd ~/Desktop"
 alias dc="cd ~/Documents"
-
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
-
-# Update
-alias update='sudo dnf upgrade; flatpak update; npm install npm -g; npm update -g'
 
 # IP addresses and network
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
