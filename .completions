@@ -1,18 +1,8 @@
-#!/bin/bash
-
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
-
-# Append to the Bash history file, rather than overwriting it
-shopt -s histappend
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell
+#!/usr/bin/env bash
 
 # Enable tab completion for `g` and `dot` by marking it as an alias for `git`
 if type _git &>/dev/null; then
     complete -o default -o nospace -F _git g
-    complete -o default -o nospace -F _git dot
 fi
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards

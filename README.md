@@ -7,3 +7,4 @@
 -   https://github.com/LukeSmithxyz/voidrice
 -   https://github.com/alrra/dotfiles
 -   https://github.com/cowboy/dotfiles
+-   https://github.com/nicholastmosher/dotfiles/blob/master/.alias

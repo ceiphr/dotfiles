@@ -1,5 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Based on: https://github.com/nicholastmosher/dotfiles/blob/master/.alias
+
+function is-executable() {
+	command -v "$1" >/dev/null 2>&1
+}
 
 #############
 # CLI tools #
@@ -83,9 +87,6 @@ is-executable svn && alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 
 # Wget
 is-executable wget && alias wget=wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts'
-
-# Yarn
-is-executable yarn && yarn --use-yarnrc "$XDG_CONFIG_HOME"/yarn/config
 
 # Radian
 if is-executable radian; then

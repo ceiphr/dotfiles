@@ -17,7 +17,7 @@
         "**/.ssh/config": true,
         "**/*.inputrc": true
     },
-    "shellcheck.exclude": ["1090", "1091"],
+    "shellcheck.exclude": ["1071", "1090", "1091"],
     "editor.codeActionsOnSave": {
         "source.fixAll.shellcheck": true
     },
