@@ -12,6 +12,9 @@
 
 ## TODO
 
+-   [ ] Add `Ansible` playbook
+-   [ ] Add `.minecraft`
+-   [ ] Add EasyEffects settings and submodule
 -   [ ] Add documentation
 -   [ ] Add screenshots
 -   [ ] Add bats tests

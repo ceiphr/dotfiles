@@ -51,20 +51,36 @@ function dotfiles_reset() {
 }
 
 function install_dnf() {
+    # Add third-party repos.
+    # 1Password
+    echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding 1Password repo."
+    sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+    sudo sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo' >/dev/null 2>&1 || error "Unable to add 1Password repo."
+    # Charm
+    echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding Charm repo."
+    sudo sh -c 'echo -e "[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo' >/dev/null 2>&1 || error "Unable to add Charm repo."
+    # VSCode
+    echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding VSCode repo."
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo' >/dev/null 2>&1 || error "Unable to add VSCode repo."
+    # Insync
+    echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding Insync repo."
+    sudo rpm --import https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key
+    sudo sh -c 'echo -e "[insync]\nname=insync repo\nbaseurl=http://yum.insync.io/fedora/38/\ngpgcheck=1\ngpgkey=https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key\nenabled=1\nmetadata_expire=120m" > /etc/yum.repos.d/insync.repo' >/dev/null 2>&1 || error "Unable to add Insync repo."
+    # Tailscale
+    echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding Tailscale repo."
+    sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo >/dev/null 2>&1 || error "Unable to add Tailscale repo."
+
+    # Install packages.
     [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
-    sudo dnf upgrade -y >/dev/null 2>&1 || error "Unable to upgrade packages."
+    sudo dnf upgrade -y || error "Unable to upgrade packages."
     sudo dnf install -y $(cat packages/dnf) || error "Unable to install packages."
 }
 
 function install_flatpak() {
-    flatpak update -y >/dev/null 2>&1 || error "Unable to update flatpak."
+    flatpak update -y || error "Unable to update flatpak."
     flatpak remote-add -u --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null 2>&1 || error "Unable to add flathub remote."
     flatpak install -u -y $(cat packages/flatpak) || error "Unable to install flatpak packages."
-}
-
-function install_gnome_extensions() {
-    # Note: Must be run after install_python. gnome-extensions-cli is installed via pip.
-    gnome-extensions-cli install $(cat packages/gnome-extensions) || error "Unable to install gnome extensions."
 }
 
 function install_gnome_settings() {
@@ -83,6 +99,11 @@ function install_apt() {
 function install_python() {
     pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
     pip install $(cat packages/pip) || error "Unable to install python packages."
+}
+
+function install_gnome_extensions() {
+    # Note: Must be run after install_python. gnome-extensions-cli is installed via pip.
+    gnome-extensions-cli install $(cat packages/gnome-extensions) || error "Unable to install gnome extensions."
 }
 
 function install_node() {
