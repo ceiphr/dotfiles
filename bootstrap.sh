@@ -52,20 +52,28 @@ function install_pkgs() {
     # Install OS-specific packages
     if [[ "$ID" == "fedora" ]] || [[ $ID == "rhel" ]]; then
         echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+        # DNF
+        sudo dnf upgrade -y >/dev/null 2>&1 || error "Unable to upgrade packages."
         sudo dnf install -y $(cat install/dnf) >/dev/null 2>&1 || error "Unable to install packages."
+        # Flatpak
+        flatpak update -y >/dev/null 2>&1 || error "Unable to update flatpak."
         flatpak install -y $(cat install/flatpak) >/dev/null 2>&1 || error "Unable to install flatpak packages."
     elif [[ $ID == "ubuntu" ]] || [[ "$CODESPACES" ]]; then
         [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+        # APT
+        sudo apt-get update -y >/dev/null 2>&1 || error "Unable to update packages."
         sudo apt install -y $(cat install/apt) >/dev/null 2>&1 || error "Unable to install packages."
     else
         error "Unsupported OS."
     fi
 
     # Install npm packages
+    npm update -g >/dev/null 2>&1 || error "Unable to update npm."
     npm install -g $(cat install/npm) >/dev/null 2>&1 || error "Unable to install npm packages."
 
     # Install python packages
-    pip3 install $(cat install/pip) >/dev/null 2>&1 || error "Unable to install python packages."
+    pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
+    pip install $(cat install/pip) >/dev/null 2>&1 || error "Unable to install python packages."
 }
 
 function install_omz() {
