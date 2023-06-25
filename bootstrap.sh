@@ -54,26 +54,26 @@ function install_pkgs() {
         echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
         # DNF
         sudo dnf upgrade -y >/dev/null 2>&1 || error "Unable to upgrade packages."
-        sudo dnf install -y $(cat install/dnf) >/dev/null 2>&1 || error "Unable to install packages."
+        sudo dnf install -y $(cat packages/dnf) >/dev/null 2>&1 || error "Unable to install packages."
         # Flatpak
         flatpak update -y >/dev/null 2>&1 || error "Unable to update flatpak."
-        flatpak install -y $(cat install/flatpak) >/dev/null 2>&1 || error "Unable to install flatpak packages."
+        flatpak install -y $(cat packages/flatpak) >/dev/null 2>&1 || error "Unable to install flatpak packages."
     elif [[ $ID == "ubuntu" ]] || [[ "$CODESPACES" ]]; then
         [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
         # APT
         sudo apt-get update -y >/dev/null 2>&1 || error "Unable to update packages."
-        sudo apt install -y $(cat install/apt) >/dev/null 2>&1 || error "Unable to install packages."
+        sudo apt install -y $(cat packages/apt) >/dev/null 2>&1 || error "Unable to install packages."
     else
         error "Unsupported OS."
     fi
 
     # Install npm packages
     npm update -g >/dev/null 2>&1 || error "Unable to update npm."
-    npm install -g $(cat install/npm) >/dev/null 2>&1 || error "Unable to install npm packages."
+    npm install -g $(cat packages/npm) >/dev/null 2>&1 || error "Unable to install npm packages."
 
     # Install python packages
     pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
-    pip install $(cat install/pip) >/dev/null 2>&1 || error "Unable to install python packages."
+    pip install $(cat packages/pip) >/dev/null 2>&1 || error "Unable to install python packages."
 }
 
 function install_omz() {
