@@ -15,6 +15,8 @@ if [[ -n "${NO_COLOR}" ]]; then
     TXT_RED='\033[0m'
 fi
 
+PATH="$PATH:$HOME/.local/bin"
+
 git pull origin main >/dev/null 2>&1 || error "Unable to pull latest changes."
 
 # Tiago Lopo: https://stackoverflow.com/a/29436423/9264137
@@ -43,7 +45,55 @@ function error() {
 }
 
 function dotfiles_reset() {
-    unset -f yes_or_no error install_omz install_pkgs install dotfiles_reset
+    unset -f yes_or_no error install_omz install_dnf install_flatpak install_apt \
+        install_python install_node install_pkgs install_fzf install_gnome_extensions \
+        install_gnome_settings install dotfiles_reset
+}
+
+function install_dnf() {
+    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+    sudo dnf upgrade -y >/dev/null 2>&1 || error "Unable to upgrade packages."
+    sudo dnf install -y $(cat packages/dnf) || error "Unable to install packages."
+}
+
+function install_flatpak() {
+    flatpak update -y >/dev/null 2>&1 || error "Unable to update flatpak."
+    flatpak remote-add -u --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null 2>&1 || error "Unable to add flathub remote."
+    flatpak install -u -y $(cat packages/flatpak) || error "Unable to install flatpak packages."
+}
+
+function install_gnome_extensions() {
+    # Note: Must be run after install_python. gnome-extensions-cli is installed via pip.
+    gnome-extensions-cli install $(cat packages/gnome-extensions) || error "Unable to install gnome extensions."
+}
+
+function install_gnome_settings() {
+    dconf load /org/gnome/shell/extensions/ <gnome-settings/extensions.conf
+    dconf load /org/gnome/desktop/ <gnome-settings/desktop.conf
+    dconf load /org/gnome/shell/ <gnome-settings/shell.conf
+    dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ <gnome-settings/keybindings.conf
+}
+
+function install_apt() {
+    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+    sudo apt-get update -y >/dev/null 2>&1 || error "Unable to update packages."
+    sudo apt install -y $(cat packages/apt) || error "Unable to install packages."
+}
+
+function install_python() {
+    pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
+    pip install $(cat packages/pip) || error "Unable to install python packages."
+}
+
+function install_node() {
+    # Install nvm
+    [[ -d "$XDG_DATA_HOME"/nvm ]] || mkdir -p "$XDG_DATA_HOME"/nvm
+    curl -s https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash || error "Unable to install nvm."
+    bash -c "source $XDG_DATA_HOME/nvm/nvm.sh && nvm install --lts" || error "Unable to install nvm."
+
+    # Install npm packages
+    npm update -g || error "Unable to update npm."
+    npm install -g $(cat packages/npm) || error "Unable to install npm packages."
 }
 
 function install_pkgs() {
@@ -51,29 +101,35 @@ function install_pkgs() {
 
     # Install OS-specific packages
     if [[ "$ID" == "fedora" ]] || [[ $ID == "rhel" ]]; then
-        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
-        # DNF
-        sudo dnf upgrade -y >/dev/null 2>&1 || error "Unable to upgrade packages."
-        sudo dnf install -y $(cat packages/dnf) >/dev/null 2>&1 || error "Unable to install packages."
-        # Flatpak
-        flatpak update -y >/dev/null 2>&1 || error "Unable to update flatpak."
-        flatpak install -y $(cat packages/flatpak) >/dev/null 2>&1 || error "Unable to install flatpak packages."
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing DNF packages..."
+        install_dnf
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing Flatpak packages..."
+        install_flatpak
     elif [[ $ID == "ubuntu" ]] || [[ "$CODESPACES" ]]; then
-        [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
-        # APT
-        sudo apt-get update -y >/dev/null 2>&1 || error "Unable to update packages."
-        sudo apt install -y $(cat packages/apt) >/dev/null 2>&1 || error "Unable to install packages."
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing APT packages..."
+        install_apt
     else
         error "Unsupported OS."
     fi
 
-    # Install npm packages
-    npm update -g >/dev/null 2>&1 || error "Unable to update npm."
-    npm install -g $(cat packages/npm) >/dev/null 2>&1 || error "Unable to install npm packages."
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing Python packages..."
+    install_python
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing NVM and Node packages..."
+    install_node
 
-    # Install python packages
-    pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
-    pip install $(cat packages/pip) >/dev/null 2>&1 || error "Unable to install python packages."
+    if [[ "$DESKTOP_SESSION" == "gnome" ]]; then
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME extensions..."
+        install_gnome_extensions
+
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME settings..."
+        install_gnome_settings
+    fi
+}
+
+function install_fzf() {
+    rm -rf ~/.fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf >/dev/null 2>&1 || error "Unable to install fzf."
+    ~/.fzf/install --all >/dev/null 2>&1 || error "Unable to install fzf."
 }
 
 function install_omz() {
@@ -98,36 +154,22 @@ function install() {
     # Needs to be run first to set up environment variables
     source .zshenv
 
-    # Clean up old files
-    rm -rf ~/.fzf
-
     # Install fzf
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing fzf..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf >/dev/null 2>&1 || error "Unable to install fzf."
-    ~/.fzf/install --all >/dev/null 2>&1 || error "Unable to install fzf."
+    install_fzf
 
-    # Install nvm
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing nvm..."
-    [[ -d "$XDG_DATA_HOME"/nvm ]] || mkdir -p "$XDG_DATA_HOME"/nvm
-    curl -s https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash >/dev/null 2>&1 || error "Unable to install nvm."
-    bash -c "source $XDG_DATA_HOME/nvm/nvm.sh && nvm install --lts >/dev/null 2>&1" || error "Unable to install nvm."
-
-    # Install rust
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing rust..."
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y -q >/dev/null 2>&1 || error "Unable to install rust."
-
-    # Install plugins
+    # Install oh-my-zsh and plugins
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing oh-my-zsh and plugins..."
     install_omz
 
     # Install packages
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing packages..."
     install_pkgs
 
     # Sync dotfiles to home directory
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing dotfiles..."
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing dotfiles..."
     rsync --exclude ".git/" \
         --exclude ".vscode/" \
+        --exclude "gnome-settings/" \
         --exclude "packages/" \
         --exclude "extras/" \
         --exclude ".gitmodules" \
@@ -136,15 +178,17 @@ function install() {
         --exclude "LICENSE" \
         -avh --no-perms . ~ >/dev/null 2>&1 || error "Unable to sync files."
 
-    # Change default shell to zsh
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Changing shell to zsh..."
-    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
-    sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1 || error "Unable to change shell. Change it manually."
+    # Change default shell to zsh if it's not already
+    if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+        echo -e "${TXT_GREEN}>${TXT_DEFAULT} Changing shell to zsh..."
+        [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+        sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1 || error "Unable to change shell. Change it manually."
+    fi
 
     # Reload terminal
     zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
 
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done. Reload your terminal."
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 }
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ] || [ "$CODESPACES" ]; then

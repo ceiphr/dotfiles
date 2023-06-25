@@ -58,6 +58,18 @@ if is-executable nautilus; then
     }
 fi
 
+# GNOME
+function gnome-export-settings() {
+    dconf dump /org/gnome/"$1"/
+}
+
+# Chrome
+if is-executable google-chrome-stable; then
+    function chrome() {
+        (google-chrome-stable "$@" </dev/null &>/dev/null &)
+    }
+fi
+
 # VSCode
 if is-executable code; then
     function code() {

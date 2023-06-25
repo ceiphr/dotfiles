@@ -46,6 +46,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Adds `~/.local/bin` to $PATH
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 for file in ~/.{path,exports,functions,aliases,completions,p10k.zsh}; do

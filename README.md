@@ -15,6 +15,3 @@
 -   [ ] Add documentation
 -   [ ] Add screenshots
 -   [ ] Add bats tests
--   [ ] Add GNOME extensions
--   [ ] Add GNOME keybindings
--   [ ] Add GNOME settings

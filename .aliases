@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Based on: https://github.com/nicholastmosher/dotfiles/blob/master/.alias
 
 #############
 # CLI tools #
@@ -82,7 +81,7 @@ is-executable svn && alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 is-executable wget && alias wget=wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts'
 
 # Flatpak
-is-executable flatpak && alias flatpak-export="flatpak list --columns=application"
+is-executable flatpak && alias flatpak-export="flatpak list -u --columns=application"
 
 # Radian
 if is-executable radian; then
@@ -115,9 +114,11 @@ is-executable colordiff && alias diff='colordiff'
 # GUI apps #
 ############
 
-# Browsers
-is-executable google-chrome-stable && alias chrome="google-chrome-stable &"
+# Firefox
 is-executable firefox && alias ff="firefox"
+
+# GNOME
+alias gnome-export-extensions='gnome-extensions list --enabled'
 
 # VSCode
 alias code-export-extensions='/usr/bin/code --list-extensions'
