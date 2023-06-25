@@ -12,37 +12,43 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
-# Standard plugins -> ~/.oh-my-zsh/plugins/*
-# Custom plugins -> ~/.oh-my-zsh/custom/plugins/
 plugins=(
+  # Standard plugins
+  1password
+  aliases
+  ansible
+  charm
   gitfast
+  github
+  golang
+  dnf
+  dotenv
+  fzf
   npm
+  nvm
   pip
   pyenv
   python
+  rsync
+  rust
+  systemd
+  tmux
   sudo
   vscode
+  zsh-interactive-cd
+  zsh-navigation-tools
+
+  # Custom plugins
   zsh-autosuggestions
   zsh-completions 
-  zsh-interactive-cd
   zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# Completions dump only run every 24h
-# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2308206
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-  break
-done
-compinit -C -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{exports,aliases,functions,completions,p10k.zsh}; do
+for file in ~/.{path,exports,functions,aliases,completions,p10k.zsh}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

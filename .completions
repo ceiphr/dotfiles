@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Completions dump only run every 24h
+# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2308206
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+  break
+done
+compinit -C -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
 # Enable tab completion for `g` and `dot` by marking it as an alias for `git`
 if type _git &>/dev/null; then
     complete -o default -o nospace -F _git g

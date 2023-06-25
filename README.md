@@ -11,10 +11,7 @@
 
 ## TODO
 
--   [ ] Add prettier config
--   [ ] Add eslint config
--   [ ] Add Firefox config
--   [ ] Add Vim plugins
 -   [ ] Add documentation
+-   [ ] Add package list and install function for packages
 -   [ ] Add screenshots
 -   [ ] Add bats tests

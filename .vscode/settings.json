@@ -1,4 +1,10 @@
 {
+    "[properties]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[ignore]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
     "shellcheck.enable": true,
     "shellcheck.enableQuickFix": true,
     "shellcheck.ignorePatterns": {
@@ -16,7 +22,8 @@
         "**/*.zsh-theme": true,
         "**/.ssh/config": true,
         "**/inputrc": true,
-        "**/config": true
+        "**/config": true,
+        ".completions": true
     },
     "shellcheck.exclude": ["1071", "1090", "1091"],
     "editor.codeActionsOnSave": {
@@ -24,9 +31,9 @@
     },
     "files.associations": {
         "config": "shellscript",
+        "ignore": "properties",
         "inputrc": "shellscript",
         "*.dirs": "properties",
-        ".gitignore": "properties",
         "*.vim": "bat",
         ".vimrc": "bat"
     }

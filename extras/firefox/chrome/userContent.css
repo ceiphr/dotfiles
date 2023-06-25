@@ -1,0 +1,5 @@
+@import "firefox-gnome-theme/userContent.css";
+
+.personalize-button {
+    display: none !important;
+}

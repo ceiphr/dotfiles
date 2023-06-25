@@ -22,6 +22,9 @@ export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
 # Editor
+export TERMINAL="gnome-terminal"
+export TERMINAL_PROG="gnome-terminal"
+export BROWSER="firefox"
 export EDITOR="vim"
 export VISUAL="code"
 
@@ -45,6 +48,7 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 # Go
 export GOPATH="$XDG_DATA_HOME"/go
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 
 # Gradle
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
@@ -55,6 +59,12 @@ export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 # Podman
 export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
 
+# Minikube
+export MINIKUBE_HOME="$XDG_DATA_HOME"/minikube
+
+# Tmux
+export TMUX_TMPDIR="$XDG_STATE_HOME"/tmux
+
 # AWS
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
@@ -63,9 +73,19 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export ANDROID_HOME="$XDG_DATA_HOME"/android
 
 # Python -> Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc.py
 export PYTHONIOENCODING='UTF-8'
+export IPYTHONDIR="${XDG_CONFIG_HOME}/ipython"
 
-# If rg is installed, use it as fzf command.
+# Jupyter
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+
+# VSCode
+if [[ -f $XDG_CONFIG_HOME/code-flags.conf ]]; then
+    export CODE_USER_FLAGS="$(sed 's/#.*//' $XDG_CONFIG_HOME/code-flags.conf | tr '\n' ' ')"
+fi
+
+# RipGrep -> Use ripgrep as the default source for fzf
 if [[ -x "$(command -v "rg")" ]]; then
     export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

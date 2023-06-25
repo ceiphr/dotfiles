@@ -1,0 +1,243 @@
+{
+    // General
+    "settingsSync.ignoredExtensions": ["ms-vscode-remote.remote-wsl"],
+    "extensions.ignoreRecommendations": true,
+    "update.mode": "none",
+
+    // Workbench
+    "workbench.preferredLightColorTheme": "Adwaita Light & default syntax highlighting",
+    "workbench.preferredDarkColorTheme": "Adwaita Dark & default syntax highlighting",
+    "workbench.colorTheme": "Adwaita Dark & default syntax highlighting",
+    "workbench.productIconTheme": "adwaita",
+    "workbench.iconTheme": "vscode-jetbrains-icon-theme",
+    "workbench.tips.enabled": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.untitled.hint": "hidden",
+    "workbench.layoutControl.enabled": false,
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}",
+    "window.titleSeparator": " - ",
+    "window.autoDetectColorScheme": true,
+    "window.autoDetectHighContrast": false,
+    "window.titleBarStyle": "custom",
+    "window.commandCenter": true,
+    "debug.allowBreakpointsEverywhere": true,
+
+    // Git
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.ignoreMissingGitWarning": true,
+    "git.enableCommitSigning": true,
+
+    // Editor
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#6c6c8b1c"
+    },
+    "breadcrumbs.enabled": false,
+    "editor.rulers": [80, 120],
+    "editor.mouseWheelScrollSensitivity": 0.4,
+    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.suggestSelection": "first",
+    "editor.stickyScroll.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.linkedEditing": true,
+    "editor.hover.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.smoothScrolling": true,
+    "editor.fastScrollSensitivity": 3,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "svg.preview.mode": "svg",
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {
+        ".dccache": true,
+        "**/__pycache__": true,
+        "**/.cache/": true,
+        "**/.classpath": true,
+        "**/.factorypath": true,
+        "**/.idea/": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.vercel/": true,
+        "**/env/": true,
+        "**/node_modules/": true,
+        "**/playwright-report/": true,
+        "**/test-results/": true,
+        "**/venv/": true,
+        "tsconfig.tsbuildinfo": true
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html",
+        "vue-html": "html",
+        "javascript": "javascriptreact"
+    },
+
+    // Terminal
+    "terminal.explorerKind": "external",
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.fontFamily": "Monocraft, MesloLGS NF",
+    "terminal.integrated.tabs.enabled": true,
+    "terminal.integrated.letterSpacing": 1,
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash",
+            "color": "terminal.ansiGreen"
+        },
+        "zsh": {
+            "path": "zsh",
+            "icon": "terminal",
+            "color": "terminal.ansiBlue"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux",
+            "color": "terminal.ansiYellow"
+        }
+    },
+
+    // Formatting
+    "files.associations": {
+        "*.mdx": "mdx"
+    },
+    "workbench.editorAssociations": {
+        "*.pdf": "latex-workshop-pdf-hook"
+    },
+    "prettier.tabWidth": 4,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "javascript.format.semicolons": "insert",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "notebook.output.textLineLimit": 50,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[dotenv]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+        },
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.formatting.provider": "black",
+    "yaml.customTags": [
+        "!And",
+        "!And sequence",
+        "!If",
+        "!If sequence",
+        "!Not",
+        "!Not sequence",
+        "!Equals",
+        "!Equals sequence",
+        "!Or",
+        "!Or sequence",
+        "!FindInMap",
+        "!FindInMap sequence",
+        "!Base64",
+        "!Join",
+        "!Join sequence",
+        "!Cidr",
+        "!Ref",
+        "!Sub",
+        "!Sub sequence",
+        "!GetAtt",
+        "!GetAZs",
+        "!ImportValue",
+        "!ImportValue sequence",
+        "!Select",
+        "!Select sequence",
+        "!Split",
+        "!Split sequence"
+    ],
+    "markdownlint.config": {
+        "default": true,
+        "MD001": false,
+        "MD007": {
+            "indent": 4
+        },
+        "MD030": false,
+        "MD041": false
+    },
+
+    // Extensions
+    "ansible.python.interpreterPath": "/bin/python",
+    "python.languageServer": "Pylance",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "better-comments.tags": [
+        {
+            "tag": "?",
+            "color": "#3498DB",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": true
+        },
+        {
+            "tag": "todo",
+            "color": "#FF8C00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "**",
+            "color": "#98C379",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        }
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "check",
+        "type": "text",
+        "background": "transparent",
+        "opacity": 50,
+        "iconColour": "green"
+    },
+    "docker.dockerPath": "/usr/bin/podman",
+    "docker.environment": {
+        "DOCKER_HOST": "unix:///run/user/1000/podman/podman.sock"
+    },
+    "gitlens.advanced.messages": {
+        "suppressLineUncommittedWarning": true
+    },
+    "go.toolsManagement.autoUpdate": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": true,
+        "scminput": false,
+        "yaml": false,
+        "erlang": true
+    },
+    "lldb.suppressUpdateNotifications": true,
+    "cmake.configureOnOpen": true,
+    "firefox.executable": "/home/ari/Applications/.firefox-developer/firefox",
+    "vscode_custom_css.imports": [
+        "file:///home/ari/.vscode-custom-css/custom.css"
+    ],
+    "cSpell.enabledLanguageIds": ["markdown", "plaintext", "yml"],
+
+    // Telemetry
+    "telemetry.telemetryLevel": "error",
+    "redhat.telemetry.enabled": false,
+    "aws.telemetry": false,
+    "aws.codeWhisperer.shareCodeWhispererContentWithAWS": false,
+    "mdb.sendTelemetry": false
+}

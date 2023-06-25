@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Based on: https://github.com/nicholastmosher/dotfiles/blob/master/.alias
 
-function is-executable() {
-	command -v "$1" >/dev/null 2>&1
-}
-
 #############
 # CLI tools #
 #############
@@ -41,16 +37,14 @@ alias dt="cd ~/Desktop"
 alias dc="cd ~/Documents"
 
 # IP addresses and network
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ip addr show"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Git
 if is-executable git; then
 	alias gitlog="git --no-pager log --date=local --format=\" * %h [%cd] %s\""
 	alias gds="git diff --staged"
-	alias dot='git --git-dir=${HOME}/.dot --work-tree=${HOME}'
 	alias glgg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 fi
 
@@ -79,7 +73,7 @@ is-executable mongod && alias mongo='mongod --dbpath ~/.mongodb/data'
 is-executable yarn && alias yarn="BROWSER=none yarn"
 
 # ProtonVPN
-is-executable protonvpn && alias pvpn="protonvpn"
+is-executable protonvpn && alias pvpn="sudo protonvpn"
 
 # SVN
 is-executable svn && alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
@@ -119,23 +113,11 @@ is-executable colordiff && alias diff='colordiff'
 ############
 
 # Browsers
-is-executable google-chrome-stable && alias chrome="google-chrome-stable"
+is-executable google-chrome-stable && alias chrome="google-chrome-stable &"
 is-executable firefox && alias ff="firefox"
 
-# File management
-is-executable "nautilus" &&
-	alias files="(nautilus -w . </dev/null &>/dev/null &)"
-
 # VSCode
-if is-executable code; then
-	# Use Wayland backend.
-	code() {
-		(/usr/bin/code --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WaylandWindowDecorations "$1" </dev/null &>/dev/null &)
-	}
-
-	# Allowing for custom CSS.
-	alias chown-code='sudo chown -R $(whoami) /usr/share/code/ /usr/bin/code'
-fi
+alias chown-code='sudo chown -R $(whoami) /usr/share/code/ /usr/bin/code'
 
 #############
 # Utilities #

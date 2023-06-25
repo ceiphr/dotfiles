@@ -1,0 +1,113 @@
+/* Make titlebar and window controls look more native */
+.monaco-workbench .part.titlebar {
+    padding: 0px 1px !important;
+}
+
+.window-appicon {
+    display: none !important;
+}
+
+.monaco-workbench .part.titlebar .window-controls-container {
+    width: 114px !important;
+    justify-content: space-around !important;
+}
+
+/* Window control icon formatting */
+.monaco-workbench .part.titlebar .window-controls-container > .window-icon {
+    display: block;
+    height: 24px;
+    width: 24px;
+    transform: none;
+    margin-top: 6px;
+    border-radius: 100%;
+    transition: background-color 100ms ease-in-out;
+}
+
+.window-close:before,
+.window-max-restore.codicon-chrome-maximize:before,
+.window-max-restore.codicon-chrome-restore:before,
+.window-minimize:before {
+    height: 24px !important;
+    width: 24px;
+    display: block;
+    background: currentColor;
+    -webkit-mask-size: contain;
+}
+
+/* Replace the close icon */
+.window-close:before {
+    -webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg height='16px' viewBox='0 0 24 24' width='16px' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='opacity:0.1' fill='currentColor' cx='12' cy='12' r='12' /%3E%3Cpath d='M 8.0035143,8 H 9.003075 9.034311 c 0.2537945,0.011719 0.5114942,0.128906 0.687198,0.3125 l 2.280248,2.28125 2.311484,-2.28125 C 14.57875,8.082031 14.758358,8.007812 15.000439,8 H 16 v 1 c 0,0.285156 -0.03514,0.550781 -0.24989,0.75 l -2.280248,2.28125 2.249012,2.25 C 15.906291,14.46875 16,14.734375 16,15 v 1 h -0.999561 c -0.265508,0 -0.531016,-0.09375 -0.718434,-0.28125 L 12.001757,13.4375 9.7215092,15.71875 C 9.5340916,15.90625 9.2685833,16 9.003075,16 H 8.0035143 v -1 c 0,-0.265625 0.093709,-0.53125 0.2811264,-0.71875 l 2.2802483,-2.25 L 8.2846407,9.75 C 8.0737954,9.554688 7.9800866,9.28125 8.0035143,9 Z m 0,0' fill='currentColor' /%3E%3C/svg%3E%0A");
+}
+
+/* Replace maximize icon */
+.window-max-restore.codicon-chrome-maximize:before {
+    -webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg height='16px' viewBox='0 0 24 24' width='16px' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='opacity:0.1' fill='currentColor' cx='12' cy='12' r='12' /%3E%3Cpath style='transform:translate(4px,4px)' d='m 3.988281 3.992188 v 8.011718 h 8.011719 v -8.011718 z m 2 2 h 4.011719 v 4.011718 h -4.011719 z m 0 0' fill='currentColor' /%3E%3C/svg%3E%0A");
+}
+
+/* Replace restore icon */
+.window-max-restore.codicon-chrome-restore:before {
+    -webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg height='16px' viewBox='0 0 24 24' width='16px' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='opacity:0.1' fill='currentColor' cx='12' cy='12' r='12' /%3E%3Cpath style='transform:translate(4px,4px)' d='m 4.988281 4.992188 v 6.011718 h 6.011719 v -6.011718 z m 2 2 h 2.011719 v 2.011718 h -2.011719 z m 0 0' fill='currentColor' /%3E%3C/svg%3E%0A");
+}
+
+/* Rplace minimize icon */
+.window-minimize:before {
+    -webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg height='16px' viewBox='0 0 24 24' width='16px' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='opacity:0.1' fill='currentColor' cx='12' cy='12' r='12' /%3E%3Cpath style='transform:translate(4px,4px)' d='m 4 10.007812 h 8 v 1.988282 h -8 z m 0 0' fill='currentColor' /%3E%3C/svg%3E%0A");
+}
+
+/* Make hover background color more native */
+.monaco-workbench
+    .part.titlebar
+    > .window-controls-container
+    > .window-icon:hover {
+    color: currentColor !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.monaco-workbench.vs-dark
+    .part.titlebar
+    > .window-controls-container
+    > .window-icon:hover {
+    color: currentColor !important;
+    background-color: hsla(0, 0%, 100%, 0.05) !important;
+}
+
+/* Turn menubar into '...' button */
+.menubar {
+    width: 64px !important;
+    padding-left: 4px !important;
+}
+
+/* CSSHide extension icon */
+#be5invis\.vscode-custom-css {
+    display: none !important;
+}
+
+.monaco-workbench .part.titlebar .window-controls-container.secondary {
+    display: none !important;
+}
+
+/* Quick input widget */
+.monaco-workbench .quick-input-widget {
+    top: 48px !important;
+    /* padding: 4px 0; */
+}
+
+.monaco-workbench .quick-input-widget {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid rgb(207, 207, 207) !important;
+}
+
+.monaco-workbench .quick-input-widget,
+.monaco-workbench .quick-input-widget .monaco-list-rows {
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.monaco-workbench.vs-dark .quick-input-widget {
+    border: 1px solid rgb(69, 69, 69) !important;
+}
+
+.monaco-workbench.vs-dark .quick-input-widget,
+.monaco-workbench.vs-dark .quick-input-widget .monaco-list-rows {
+    background-color: rgb(48, 48, 48) !important;
+}
