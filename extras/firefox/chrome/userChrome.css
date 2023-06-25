@@ -4,6 +4,7 @@
     fill: #4a4a4a;
 }
 
+/* Hide UI elements. */
 #appMenu-passwords-button,
 #appMenu-zoom-controls2,
 #confirmation-hint,
@@ -44,6 +45,7 @@
     padding: 4px 8px !important;
     margin: 2px 2px !important;
 }
+
 #personal-bookmarks
     .bookmark-item[scheme]:not([scheme=""])
     > .toolbarbutton-text {
@@ -55,18 +57,6 @@
     > .toolbarbutton-icon {
     margin-inline-end: 0px !important;
 }
-
-/* toolbarseparator:not([orient="vertical"]),
-menupopup menuseparator {
-    border-top: 0px !important;
-}
-
-#widget-overflow {
-    max-width: 250px !important;
-}
-#widget-overflow * {
-    max-width: 240px !important;
-} */
 
 .tabbrowser-tab[label="New Tab"] .tab-content .tab-icon-image {
     display: none !important;
@@ -82,23 +72,9 @@ menupopup menuseparator {
     border-left: 0px !important;
 }
 
-/* .tabbrowser-tab[label="New Tab"] .tab-content:before {
-    background: transparent !important;
-    fill: transparent !important;
-} */
-
 .urlbarView {
     border-inline: none !important;
 }
-
-/* :root[tabsintitlebar] #titlebar .titlebar-button {
-    margin: 6px 7px !important;
-} */
-
-/* :root[tabsintitlebar]:not([inFullscreen]) #nav-bar {
-    padding-right: 120px !important;
-}
-*/
 
 :root[tabsintitlebar][sizemode="maximized"] #TabsToolbar .toolbar-items {
     padding: 0 3px !important;
@@ -116,23 +92,3 @@ menupopup menuseparator {
         ) !important;
     }
 }
-
-/* @media (max-width: 770px) {
-    #urlbar-container {
-        min-width: calc(
-            216px + 24px + 2 * var(--toolbarbutton-inner-padding)
-        ) !important;
-    }
-
-    #nav-bar[downloadsbuttonshown] #urlbar-container {
-        min-width: 216px !important;
-    }
-
-    #identity-icon-box {
-        max-width: 70px !important;
-    }
-
-    #urlbar-zoom-button {
-        display: none !important;
-    }
-} */
