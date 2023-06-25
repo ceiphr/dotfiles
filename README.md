@@ -12,6 +12,7 @@
 
 ## TODO
 
+-   [ ] Sort packages alphabetically
 -   [ ] Add `Ansible` playbook
 -   [ ] Add `.minecraft`
 -   [ ] Add EasyEffects settings and submodule
