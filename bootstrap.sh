@@ -128,7 +128,7 @@ function install() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing dotfiles..."
     rsync --exclude ".git/" \
         --exclude ".vscode/" \
-        --exclude "install/" \
+        --exclude "packages/" \
         --exclude "extras/" \
         --exclude ".gitmodules" \
         --exclude "bootstrap.sh" \
