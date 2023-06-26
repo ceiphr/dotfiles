@@ -233,10 +233,6 @@ function install() {
         [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
         sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1 || error "Unable to change shell. Change it manually."
     fi
-
-    # Reload terminal
-    zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 }
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ] || [ "$CODESPACES" ]; then
@@ -249,4 +245,7 @@ else
     install
 fi
 
+# Reload terminal
+zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
+echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 bootstrap_reset
