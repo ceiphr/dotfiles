@@ -1,4 +1,3 @@
-cc.arduino.IDE2
 com.belmoussaoui.Obfuscate
 com.discordapp.Discord
 com.github.huluti.Curtail
@@ -6,11 +5,10 @@ com.github.liferooter.textpieces
 com.github.marhkb.Pods
 com.github.tchx84.Flatseal
 com.github.wwmm.easyeffects
-com.google.ChromeDev
-com.jetbrains.IntelliJ-IDEA-Ultimate
+com.google.Chrome
+com.hunterwittenborn.Celeste
 com.mojang.Minecraft
 com.obsproject.Studio
-com.raggesilver.BlackBox
 com.skype.Client
 com.spotify.Client
 com.todoist.Todoist
@@ -18,14 +16,12 @@ com.valvesoftware.Steam
 com.yubico.yubioath
 io.bassi.Amberol
 io.github.Foldex.AdwSteamGtk
-io.github.fsobolev.Cavalier
-io.github.jorchube.monitorets
 io.github.seadve.Kooha
 io.gitlab.adhami3310.Converter
 io.podman_desktop.PodmanDesktop
-net.minetest.Minetest
 one.flipperzero.qFlipper
 org.blender.Blender
+org.blender.Blender.Codecs
 org.cryptomator.Cryptomator
 org.gnome.Boxes
 org.gnome.SoundRecorder

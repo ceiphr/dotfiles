@@ -1,4 +1,4 @@
-@import "firefox-gnome-theme/userChrome.css";
+@import 'firefox-gnome-theme/userChrome.css';
 
 .gnome-icon g {
     fill: #4a4a4a;
@@ -14,31 +14,31 @@
     display: none !important;
 }
 
-#identity-box[pageproxystate="valid"].extensionPage,
-#identity-box[pageproxystate="valid"].chromeUI {
+#identity-box[pageproxystate='valid'].extensionPage,
+#identity-box[pageproxystate='valid'].chromeUI {
     margin-inline-end: 4px !important;
 }
 
-#identity-box[pageproxystate="valid"].extensionPage
-    > .identity-box-button[open="true"],
-#identity-box[pageproxystate="valid"].extensionPage
+#identity-box[pageproxystate='valid'].extensionPage
+    > .identity-box-button[open='true'],
+#identity-box[pageproxystate='valid'].extensionPage
     > .identity-box-button:hover:not([open]),
-#identity-box[pageproxystate="valid"].chromeUI
-    > .identity-box-button[open="true"],
-#identity-box[pageproxystate="valid"].chromeUI
+#identity-box[pageproxystate='valid'].chromeUI
+    > .identity-box-button[open='true'],
+#identity-box[pageproxystate='valid'].chromeUI
     > .identity-box-button:hover:not([open]) {
     background-color: transparent !important;
 }
 
-#identity-box[pageproxystate="valid"].extensionPage > .identity-box-button,
-#identity-box[pageproxystate="valid"].chromeUI > .identity-box-button {
+#identity-box[pageproxystate='valid'].extensionPage > .identity-box-button,
+#identity-box[pageproxystate='valid'].chromeUI > .identity-box-button {
     padding-inline: 6px !important;
 }
 
 /* Extensions button */
 #unified-extensions-button {
     /* list-style-image: url("../icons/pan-down-symbolic.svg") !important; */
-    list-style-image: url("firefox-gnome-theme/theme/icons/application-x-addon-symbolic.svg") !important;
+    list-style-image: url('firefox-gnome-theme/theme/icons/application-x-addon-symbolic.svg') !important;
 }
 
 #personal-bookmarks toolbarbutton.bookmark-item {
@@ -47,27 +47,27 @@
 }
 
 #personal-bookmarks
-    .bookmark-item[scheme]:not([scheme=""])
+    .bookmark-item[scheme]:not([scheme=''])
     > .toolbarbutton-text {
     display: none !important;
 }
 
 #personal-bookmarks
-    .bookmark-item[scheme]:not([scheme=""])
+    .bookmark-item[scheme]:not([scheme=''])
     > .toolbarbutton-icon {
     margin-inline-end: 0px !important;
 }
 
-.tabbrowser-tab[label="New Tab"] .tab-content .tab-icon-image {
+.tabbrowser-tab[label='New Tab'] .tab-content .tab-icon-image {
     display: none !important;
 }
 
 .tabbrowser-tab:not(
         [selected],
         :hover,
-        [last-visible-tab="true"],
-        [beforeselected-visible="true"],
-        [beforehovered="true"]
+        [last-visible-tab='true'],
+        [beforeselected-visible='true'],
+        [beforehovered='true']
     )::after {
     border-left: 0px !important;
 }
@@ -76,7 +76,7 @@
     border-inline: none !important;
 }
 
-:root[tabsintitlebar][sizemode="maximized"] #TabsToolbar .toolbar-items {
+:root[tabsintitlebar][sizemode='maximized'] #TabsToolbar .toolbar-items {
     padding: 0 3px !important;
 }
 

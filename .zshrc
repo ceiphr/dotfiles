@@ -40,7 +40,7 @@ plugins=(
 
   # Custom plugins
   zsh-autosuggestions
-  zsh-completions 
+  zsh-completions
   zsh-syntax-highlighting
 )
 

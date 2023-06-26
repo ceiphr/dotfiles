@@ -1,8 +1,8 @@
-vim
-ripgrep
 colordiff
 cowsay
 fzf
-sl
-shellcheck
 golang
+ripgrep
+shellcheck
+sl
+vim

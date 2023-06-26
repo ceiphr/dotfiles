@@ -77,3 +77,14 @@ if is-executable code; then
         (/usr/bin/code "$CODE_USER_FLAGS" "$@" </dev/null &>/dev/null &) || (/usr/bin/code "$@" </dev/null &>/dev/null &)
     }
 fi
+
+# Minecraft
+function minecraft-pre-launch() {
+    gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing false
+    #gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat
+}
+
+function minecraft-post-exit() {
+    gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing true
+    #gsettings set org.gnome.desktop.peripherals.mouse accel-profile default
+}
