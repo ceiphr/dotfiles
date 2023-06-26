@@ -1,3 +1,6 @@
 [submodule "extras/firefox/chrome/firefox-gnome-theme"]
 path = extras/firefox/chrome/firefox-gnome-theme
 url = https://github.com/rafaelmardojai/firefox-gnome-theme
+[submodule ".var/app/com.github.wwmm.easyeffects/config/easyeffects/output"]
+	path = .var/app/com.github.wwmm.easyeffects/config/easyeffects/output
+	url = git@github.com:ceiphr/ee-framework-presets.git
