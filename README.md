@@ -16,3 +16,4 @@
 -   [ ] Add documentation
 -   [ ] Add screenshots
 -   [ ] Add bats tests
+-   [ ] bootstrap.sh ignore file

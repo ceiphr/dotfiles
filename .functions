@@ -58,10 +58,18 @@ if is-executable nautilus; then
     }
 fi
 
+if is-executable tmux; then
+    function tkl() {
+        tmux kill-session -t "$@"
+    }
+fi
+
 # GNOME
-function gnome-export-settings() {
-    dconf dump /org/gnome/"$1"/
-}
+if is-executable dconf; then
+    function gnome-export-settings() {
+        dconf dump /org/gnome/"$1"/
+    }
+fi
 
 # Chrome
 if is-executable google-chrome-stable; then
@@ -79,12 +87,14 @@ if is-executable code; then
 fi
 
 # Minecraft
-function minecraft-pre-launch() {
-    gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing false
-    #gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat
-}
+if is-executable gsettings; then
+    function minecraft-pre-launch() {
+        gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing false
+        #gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat
+    }
 
-function minecraft-post-exit() {
-    gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing true
-    #gsettings set org.gnome.desktop.peripherals.mouse accel-profile default
-}
+    function minecraft-post-exit() {
+        gsettings set org.gnome.desktop.peripherals.touchpad disable-while-typing true
+        #gsettings set org.gnome.desktop.peripherals.mouse accel-profile default
+    }
+fi

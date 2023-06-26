@@ -66,9 +66,6 @@ if is-executable tmux; then
 	alias vsp="tmux split-window -h"
 	alias ":sp"="tmux split-window"
 	alias ":vsp"="tmux split-window -h"
-	tkl() {
-		tmux kill-session -t "$@"
-	}
 
 	# Assign tab bindings for fzf-tmux if installed.
 	is-executable fzf-tmux && alias fzf-tmux="fzf-tmux --bind=tab:up,btab:down"
@@ -133,7 +130,7 @@ is-executable colordiff && alias diff='colordiff'
 is-executable firefox && alias ff="firefox"
 
 # GNOME
-alias gnome-export-extensions='gnome-extensions list --enabled'
+is-executable gnome-extensions && alias gnome-export-extensions='gnome-extensions list --user --enabled'
 
 # VSCode
 alias code-export-extensions='/usr/bin/code --list-extensions'
