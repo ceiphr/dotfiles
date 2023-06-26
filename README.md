@@ -13,8 +13,12 @@
 ## TODO
 
 -   [ ] Sort packages alphabetically
+-   [ ] Clean up package lists
 -   [ ] Add `Ansible` playbook
 -   [ ] Add `.minecraft`
+-   [ ] Add RPM Fusion
+-   [ ] Add scroll-speed fixer
+-   [ ] Add icon theme
 -   [ ] Add EasyEffects settings and submodule
 -   [ ] Add documentation
 -   [ ] Add screenshots
