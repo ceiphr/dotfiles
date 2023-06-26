@@ -1,4 +1,10 @@
 Glances
 gnome-extensions-cli
+httpie
+iredis
+pgcli
 pre-commit
+ruff
+thefuck
+wheel
 youtube-dl

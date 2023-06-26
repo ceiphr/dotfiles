@@ -80,6 +80,9 @@ is-executable svn && alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 # Wget
 is-executable wget && alias wget=wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts'
 
+# Fuck
+is-executable thefuck && eval $(thefuck --alias)
+
 # Flatpak
 is-executable flatpak && alias flatpak-export="flatpak list -u --columns=application | egrep -v 'freedesktop|OsinfoDb'"
 

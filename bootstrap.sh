@@ -22,7 +22,7 @@ git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull la
 function bootstrap_reset() {
     unset -f yes_or_no error install_omz install_dnf install_flatpak install_apt \
         install_python install_node install_pkgs install_fzf install_gnome_extensions \
-        install_gnome_settings install_dotfiles install bootstrap_reset
+        install_gnome_theme sync_gnome_settings sync_dotfiles install bootstrap_reset
 }
 
 function error() {
@@ -126,16 +126,6 @@ function install_flatpak() {
     flatpak install -u -y $(cat packages/flatpak) || error "Unable to install flatpak packages."
 }
 
-function install_gnome_settings() {
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME settings..."
-
-    # Load GNOME settings into dconf
-    dconf load /org/gnome/shell/extensions/ <gnome-settings/extensions.conf
-    dconf load /org/gnome/desktop/ <gnome-settings/desktop.conf
-    dconf load /org/gnome/shell/ <gnome-settings/shell.conf
-    dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ <gnome-settings/keybindings.conf
-}
-
 function install_apt() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing APT packages..."
     [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
@@ -155,6 +145,13 @@ function install_gnome_extensions() {
 
     # Note: Must be run after install_python. gnome-extensions-cli is installed via pip.
     gnome-extensions-cli install $(cat packages/gnome-extensions) || error "Unable to install gnome extensions."
+}
+
+function install_gnome_theme() {
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME theme..."
+
+    git clone https://github.com/somepaulo/MoreWaita.git /tmp/MoreWaita >/dev/null 2>&1 || error "Unable to clone MoreWaita repo."
+    bash /tmp/MoreWaita/local-install.sh >/dev/null 2>&1 || error "Unable to install MoreWaita theme."
 }
 
 function install_node() {
@@ -185,14 +182,19 @@ function install_pkgs() {
 
     install_python
     install_node
-
-    if [[ "$DESKTOP_SESSION" == "gnome" ]]; then
-        install_gnome_extensions
-        install_gnome_settings
-    fi
 }
 
-function install_dotfiles() {
+function sync_gnome_settings() {
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing GNOME settings..."
+
+    # Load GNOME settings into dconf
+    dconf load /org/gnome/shell/extensions/ <gnome-settings/extensions.conf
+    dconf load /org/gnome/desktop/ <gnome-settings/desktop.conf
+    dconf load /org/gnome/shell/ <gnome-settings/shell.conf
+    dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ <gnome-settings/keybindings.conf
+}
+
+function sync_dotfiles() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing dotfiles..."
     rsync --exclude ".git/" \
         --exclude ".vscode/" \
@@ -216,7 +218,14 @@ function install() {
     install_fzf
     install_omz
     install_pkgs
-    install_dotfiles
+
+    if [[ "$DESKTOP_SESSION" == "gnome" ]]; then
+        install_gnome_extensions
+        install_gnome_theme
+        sync_gnome_settings
+    fi
+
+    sync_dotfiles
 
     # Change default shell to zsh if it's not already
     if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
@@ -232,6 +241,8 @@ function install() {
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ] || [ "$CODESPACES" ]; then
     install
+elif [ "$1" == "--sync" ] || [ "$1" == "-s" ]; then
+    sync_dotfiles
 else
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} This may overwrite existing files in your home directory."
     yes_or_no "Are you sure?" || (dotfiles_reset && exit 1)

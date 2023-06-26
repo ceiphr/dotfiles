@@ -13,8 +13,6 @@
 ## TODO
 
 -   [ ] Add `Ansible` playbook
--   [ ] Add scroll-speed fixer
--   [ ] Add icon theme
 -   [ ] Add documentation
 -   [ ] Add screenshots
 -   [ ] Add bats tests

@@ -1,0 +1,25 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=VS Code
+GenericName=Text Editor
+Comment=Code Editing. Redefined.
+Icon=com.visualstudio.code
+Exec=sh -c "$((/usr/share/code/code "$CODE_USER_FLAGS" --unity-launch %U) || (/usr/share/code/code --unity-launch %U))"
+Actions=new-empty-window;new-window-x11;new-window-wayland;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Categories=Development;IDE;TextEditor;
+Keywords=vscode;
+StartupWMClass=code-url-handler
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/usr/share/code/code --new-window %F
+
+[Desktop Action new-window-x11]
+Name=New Window (X11)
+Exec=/usr/share/code/code --unity-launch %U
+
+[Desktop Action new-window-wayland]
+Name=New Window (Wayland)
+Exec=/usr/share/code/code "$CODE_USER_FLAGS" --unity-launch %U

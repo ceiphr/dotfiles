@@ -4,6 +4,9 @@
 # Linux
 *~
 
+# Ruff
+.ruff_cache
+
 # Node.js, npm, and yarn.
 node_modules
 npm-debug.log*
