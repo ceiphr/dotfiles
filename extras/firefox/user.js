@@ -1,6 +1,11 @@
 // Add smooth over-scrolling similar to Mac OS
 user_pref('apz.overscroll.enabled', true);
 
+// Reduce scroll-speed -> Intended for GNOME/Wayland
+user_pref('mousewheel.min_line_scroll_amount', 100);
+user_pref('mousewheel.default.delta_multiplier_x', 40);
+user_pref('mousewheel.default.delta_multiplier_y', 40);
+
 // Improve performance
 user_pref('gfx.webrender.all', true);
 

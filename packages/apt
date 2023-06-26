@@ -5,4 +5,5 @@ golang
 ripgrep
 shellcheck
 sl
+tmux
 vim

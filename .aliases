@@ -34,11 +34,23 @@ alias dl="cd ~/Downloads"
 alias dr="cd ~/Drive"
 alias dt="cd ~/Desktop"
 alias dc="cd ~/Documents"
+alias cg="cd ~/GitHub"
 
 # IP addresses and network
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ip addr show"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Grub
+alias grub-edit='sudo vim /etc/default/grub'
+alias grub-update='sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
+
+# TLP
+alias tlp-edit='sudo vim /etc/default/tlp'
+alias tlp-status='sudo tlp-stat -s'
+
+# Systemd
+alias systemd-edit='sudo vim /etc/systemd/system.conf'
 
 # Git
 if is-executable git; then
