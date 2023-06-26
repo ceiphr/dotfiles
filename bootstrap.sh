@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Bootstrap script for my dotfiles.
+# https://github.com/ceiphr/dotfiles
+# MIT License
+# Copyright (c) 2023 Ari Birnbaum.
+
 # For echo -e color support.
 TXT_DEFAULT='\033[0m'
 TXT_GREEN='\033[0;32m'
@@ -17,14 +22,27 @@ fi
 
 PATH="$PATH:$HOME/.local/bin"
 
-git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes."
-
+# Clean up after ourselves.
 function bootstrap_reset() {
     unset -f yes_or_no error install_omz install_dnf install_flatpak install_apt \
         install_python install_node install_pkgs install_fzf install_gnome_extensions \
         install_gnome_theme sync_gnome_settings sync_dotfiles install bootstrap_reset
 }
 
+# In case the user quits the program in the critical section, we can
+# simply unlock the section before exiting.
+handle_sigint() {
+    bootstrap_reset
+    exit 1
+}
+
+trap 'handle_sigint' INT
+
+# Pull latest changes from repo and submodules.
+git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes."
+
+# Error handling and cleanup.
+# Usage: echo "Hello world!" || error "Error message"
 function error() {
     echo -e "${TXT_RED}!${TXT_DEFAULT} $1"
     echo -e "${TXT_RED}!${TXT_DEFAULT} Exiting."
@@ -150,6 +168,7 @@ function install_gnome_extensions() {
 function install_gnome_theme() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME theme..."
 
+    # Clone MoreWaita repo to /tmp and run local-install.sh to install theme
     git clone https://github.com/somepaulo/MoreWaita.git /tmp/MoreWaita >/dev/null 2>&1 || error "Unable to clone MoreWaita repo."
     bash /tmp/MoreWaita/local-install.sh >/dev/null 2>&1 || error "Unable to install MoreWaita theme."
 }

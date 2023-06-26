@@ -133,7 +133,7 @@ is-executable firefox && alias ff="firefox"
 is-executable gnome-extensions && alias gnome-export-extensions='gnome-extensions list --user --enabled'
 
 # VSCode
-alias code-export-extensions='/usr/bin/code --list-extensions'
+is-executable code && alias code-export-extensions='/usr/bin/code --list-extensions'
 alias chown-code='sudo chown -R $(whoami) /usr/share/code/ /usr/bin/code'
 
 #############
