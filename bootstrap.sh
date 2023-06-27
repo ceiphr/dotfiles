@@ -172,6 +172,7 @@ function install_gnome_theme() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME theme..."
 
     # Clone MoreWaita repo to /tmp and run local-install.sh to install theme
+    rm -rf /tmp/MoreWaita
     git clone https://github.com/somepaulo/MoreWaita.git /tmp/MoreWaita >/dev/null 2>&1 || error "Unable to clone MoreWaita repo."
     bash /tmp/MoreWaita/local-install.sh >/dev/null 2>&1 || error "Unable to install MoreWaita theme."
 }
