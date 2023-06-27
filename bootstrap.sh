@@ -117,6 +117,9 @@ function install_dnf() {
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding Charm repo..."
     sudo sh -c 'echo -e "[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo' >/dev/null 2>&1 || error "Unable to add Charm repo."
 
+    # Lazygit
+    sudo dnf copr enable atim/lazygit -y >/dev/null 2>&1 || error "Unable to add Lazygit repo."
+
     # VSCode
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding VSCode repo..."
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -260,7 +263,7 @@ elif [ "$1" == "--sync" ] || [ "$1" == "-s" ]; then
     sync_dotfiles
 else
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} This may overwrite existing files in your home directory."
-    yes_or_no "Are you sure?" || (dotfiles_reset && exit 1)
+    yes_or_no "Are you sure?" || (bootstrap_reset && exit 1)
     install
 fi
 
