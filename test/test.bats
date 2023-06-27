@@ -13,10 +13,12 @@ setup() {
 @test "Standard dotfiles install." {
     run bootstrap.sh -f
     [ "$status" -eq 0 ]
-
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
+
     assert_exists "$DIRECTORY/.zshrc"
+    run source "$DIRECTORY/.zshrc"
+    [ "$status" -eq 0 ]
 }
 
 @test "Remote dotfiles install." {
@@ -25,6 +27,9 @@ setup() {
 
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
-    assert_exists "/tmp/dotfiles"
+
+    assert_exists "$DIRECTORY/.dotfiles"
     assert_exists "$DIRECTORY/.zshrc"
+    run source "$DIRECTORY/.zshrc"
+    [ "$status" -eq 0 ]
 }
