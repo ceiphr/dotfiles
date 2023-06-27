@@ -263,3 +263,4 @@ fi
 zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
 echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 bootstrap_reset
+exit 0

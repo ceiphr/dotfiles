@@ -1,0 +1,26 @@
+name: Deploy Website to Github Pages
+
+on:
+    push:
+        branches:
+            - main
+
+    workflow_dispatch:
+
+jobs:
+    deployment:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Build
+              run: |
+                  mkdir -p public
+                  cp -a remote-install.sh public/install.
+                  echo "<\!DOCTYPE html><meta http-equiv='refresh' content='0; url=https://github.com/ceiphr/dotfiles' />" > public/index.html
+
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+                  publish_dir: ./public

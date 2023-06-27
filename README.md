@@ -1,5 +1,11 @@
 # Ari's Dotfiles
 
+## Installation
+
+```bash
+sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)"
+```
+
 ## Based on
 
 -   https://github.com/mathiasbynens/dotfiles
@@ -15,4 +21,3 @@
 -   [ ] Add `Ansible` playbook
 -   [ ] Add documentation
 -   [ ] Add screenshots
--   [ ] Add bats tests
