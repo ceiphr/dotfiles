@@ -1,11 +1,11 @@
-[submodule ".var/app/com.github.wwmm.easyeffects/config/easyeffects/output"]
-path = .var/app/com.github.wwmm.easyeffects/config/easyeffects/output
-url = git@github.com:ceiphr/ee-framework-presets.git
+[submodule "src/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output"]
+path = src/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output
+url = https://github.com/ceiphr/ee-framework-presets.git
 
 [submodule "extras/firefox/chrome/firefox-gnome-theme"]
 path = extras/firefox/chrome/firefox-gnome-theme
-url = git@github.com:rafaelmardojai/firefox-gnome-theme.git
+url = https://github.com/rafaelmardojai/firefox-gnome-theme.git
 
 [submodule "extras/framework/libinput/libinput-config"]
 path = extras/framework/libinput/libinput-config
-url = git@gitlab.com:warningnonpotablewater/libinput-config.git
+url = https://gitlab.com/warningnonpotablewater/libinput-config.git

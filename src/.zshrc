@@ -17,9 +17,8 @@ plugins=(
   1password
   aliases
   ansible
-  charm
   gitfast
-  github
+  gh
   golang
   dnf
   dotenv
@@ -27,9 +26,7 @@ plugins=(
   npm
   nvm
   pip
-  pyenv
   python
-  rsync
   rust
   systemd
   tmux

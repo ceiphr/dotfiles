@@ -218,29 +218,21 @@ function sync_gnome_settings() {
 
 function sync_dotfiles() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing dotfiles..."
-    rsync --exclude ".git/" \
-        --exclude ".vscode/" \
-        --exclude ".github/" \
-        --exclude "gnome-settings/" \
-        --exclude "packages/" \
-        --exclude "extras/" \
-        --exclude ".gitmodules" \
-        --exclude ".pre-commit-config.yaml" \
-        --exclude "bootstrap.sh" \
-        --exclude "README.md" \
-        --exclude "LICENSE" \
-        -avh --no-perms . ~ >/dev/null 2>&1 || error "Unable to sync files."
+    rsync -avh --no-perms src/ ~ >/dev/null 2>&1 || error "Unable to sync files."
 }
 
 function install() {
     # Needs to be run first to set up environment variables
     source .zshenv
 
-    # Install various plugins and packages
-    install_fzf
-    install_omz
+    # Install packages
     install_pkgs
 
+    # Install various plugins and extensions
+    install_fzf
+    install_omz
+
+    # Install GNOME extensions and theme if running GNOME
     if [[ "$DESKTOP_SESSION" == "gnome" ]]; then
         install_gnome_extensions
         install_gnome_theme
