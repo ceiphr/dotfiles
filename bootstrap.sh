@@ -184,12 +184,14 @@ function install_node() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing NVM and Node packages..."
 
     # Install nvm
-    [[ -d "$XDG_DATA_HOME"/nvm ]] || mkdir -p "$XDG_DATA_HOME"/nvm
+    [[ -d $NVM_DIR ]] || mkdir -p "$NVM_DIR"
     curl -s https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash || error "Unable to install nvm."
-    (source "$XDG_DATA_HOME"/nvm/nvm.sh && nvm install --lts) || error "Unable to install nvm."
+    (source "$NVM_DIR"/nvm.sh && nvm install --lts) || error "Unable to install nvm."
+
+    # Note: GitHub Actions CI tries to update npm and fails. Don't update npm in CI.
+    [[ ! "$CI" ]] && (npm update -g || error "Unable to update npm.")
 
     # Install npm packages
-    npm update -g || error "Unable to update npm."
     npm install -g $(cat packages/npm) || error "Unable to install npm packages."
 }
 
