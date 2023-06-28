@@ -27,6 +27,7 @@ postgresql
 postgresql-server
 powertop
 python3
+python3-pip
 redis
 ripgrep
 rsync
