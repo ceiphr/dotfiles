@@ -26,6 +26,7 @@ podman
 postgresql
 postgresql-server
 powertop
+python3
 redis
 ripgrep
 rsync
