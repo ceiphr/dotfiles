@@ -1,12 +1,13 @@
 <h1 align="center">
     Ari's Dotfiles
 
-[![CI][ci-shield]][ci-url] [![BASH Version][bash-version]][bash-url]
+[![Ubuntu CI][ubuntu-ci-shield]][ubuntu-ci-url]
+[![Fedora CI][fedora-ci-shield]][fedora-ci-url]
 [![MIT License][license-shield]][license-url]
 
 </h1>
 
-<p align="center">Intended for Fedora/RHEL systems and GitHub Codespaces. Tested on Fedora 38.</p>
+<p align="center">Intended for Linux systems. Tested on Ubuntu 21.04 and Fedora 38.</p>
 
 ## About The Project
 
@@ -82,11 +83,11 @@ Distributed under the MIT License. See
 [LICENSE](https://github.com/ceiphr/dotfiles/blob/main/LICENSE) for more
 information.
 
-[bash-version]:
-    https://img.shields.io/badge/bash-v4.4%5E-green?&logo=gnubash&logoColor=white
-[bash-url]: https://packages.fedoraproject.org/pkgs/bash/bash/
-[ci-shield]:
-    https://img.shields.io/github/actions/workflow/status/ceiphr/dotfiles/main.yml?logo=github
-[ci-url]: https://github.com/ceiphr/dotfiles/actions/workflows/main.yml
+[ubuntu-ci-shield]:
+    https://img.shields.io/github/actions/workflow/status/ceiphr/dotfiles/ubuntu.yml?logo=github&label=ubuntu
+[ubuntu-ci-url]: https://github.com/ceiphr/dotfiles/actions/workflows/ubuntu.yml
+[fedora-ci-shield]:
+    https://img.shields.io/github/actions/workflow/status/ceiphr/dotfiles/fedora.yml?logo=github&label=fedora
+[fedora-ci-url]: https://github.com/ceiphr/dotfiles/actions/workflows/fedora.yml
 [license-shield]: https://img.shields.io/github/license/ceiphr/dotfiles
 [license-url]: https://github.com/ceiphr/dotfiles/blob/main/LICENSE

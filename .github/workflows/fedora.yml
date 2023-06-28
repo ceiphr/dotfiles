@@ -28,8 +28,7 @@ jobs:
                       echo 'ENV CI=true'
                       echo 'COPY dotfiles dotfiles'
                       echo 'WORKDIR /dotfiles'
-                      echo 'RUN npm install -g bats'
                       echo 'RUN bash --version'
-                      echo 'RUN bash -c "time bats --print-output-on-failure test/test.bats"'
+                      echo 'RUN bash -c "time sh test/bats/bin/bats --print-output-on-failure test/test.bats"'
                   } > podmanfile
                   podman build --tag fedora${{ matrix.fedora-version }}test -f ./podmanfile
