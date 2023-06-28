@@ -239,7 +239,7 @@ function sync_dotfiles() {
 
 function install() {
     # Pull latest changes from repo and submodules.
-    git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes."
+    [[ ! "$CI" ]] && (git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes.")
 
     # Needs to be run first to set up environment variables
     source src/.zshenv
