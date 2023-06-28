@@ -103,9 +103,9 @@ function install_dnf() {
 
     # RPM Fusion
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding RPM Fusion repo..."
-    sudo dnf install \
+    sudo dnf install -y \
         https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install \
+    sudo dnf install -y \
         https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
     # 1Password
@@ -118,7 +118,7 @@ function install_dnf() {
     sudo sh -c 'echo -e "[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo' >/dev/null 2>&1 || error "Unable to add Charm repo."
 
     # Lazygit
-    sudo dnf copr enable atim/lazygit -y >/dev/null 2>&1 || error "Unable to add Lazygit repo."
+    sudo dnf copr enable atim/lazygit -y || error "Unable to add Lazygit repo."
 
     # VSCode
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding VSCode repo..."
