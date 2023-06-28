@@ -5,9 +5,8 @@
 [![MIT License][license-shield]][license-url]
 
 </h1>
-<div id="top"></div>
 
-<h5 align="center">Intended for Fedora/RHEL systems and GitHub Codespaces. Tested on Ubuntu 20.04, 21.10 and Fedora 36.</h5>
+<p align="center">Intended for Fedora/RHEL systems and GitHub Codespaces. Tested on Ubuntu 20.04, 21.10 and Fedora 36.</p>
 
 ## About The Project
 
@@ -49,12 +48,6 @@ Available arguments:
 -   `--no-gnome` - Skip configuring GNOME
 -   `--unattended` - Skip all prompts (useful for CI)
 
-## License
-
-Distributed under the MIT License. See
-[LICENSE](https://github.com/ceiphr/dotfiles/blob/main/LICENSE) for more
-information.
-
 ## Acknowledgments
 
 I'm not going to take credit for all of this. I've taken heavy inspiration from
@@ -83,7 +76,11 @@ These are some of the resources I've used to build this project:
 -   [pre-commit](https://pre-commit.com/)
 -   [xdg-ninja](https://github.com/b3nj5m1n/xdg-ninja)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## License
+
+Distributed under the MIT License. See
+[LICENSE](https://github.com/ceiphr/dotfiles/blob/main/LICENSE) for more
+information.
 
 [bash-version]:
     https://img.shields.io/badge/bash-v4.4%5E-green?&logo=gnubash&logoColor=white
