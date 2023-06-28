@@ -6,7 +6,7 @@
 
 </h1>
 
-<p align="center">Intended for Fedora/RHEL systems and GitHub Codespaces. Tested on Ubuntu 20.04, 21.10 and Fedora 36.</p>
+<p align="center">Intended for Fedora/RHEL systems and GitHub Codespaces. Tested on Fedora 36.</p>
 
 ## About The Project
 

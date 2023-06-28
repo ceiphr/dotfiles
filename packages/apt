@@ -3,6 +3,7 @@ cowsay
 fzf
 golang
 ripgrep
+rsync
 shellcheck
 sl
 tmux
