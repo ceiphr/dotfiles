@@ -39,7 +39,7 @@ function error() {
 }
 
 if [[ -x "$(command -v "git")" ]]; then
-    echo "${TXT_GREEN}>${TXT_DEFAULT} Installing dotfiles..."
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing dotfiles..."
     CURRENT_DIR=$(pwd)
 
     # Clone repository

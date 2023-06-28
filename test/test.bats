@@ -11,24 +11,24 @@ setup() {
 }
 
 @test "Standard dotfiles install." {
-    run bootstrap.sh -f
+    run bootstrap.sh -s
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
 
-    run source "$DIRECTORY/.zshrc"
+    run zsh -c "source ~/.zshrc"
     [ "$status" -eq 0 ]
 }
 
 @test "Remote dotfiles install." {
-    run sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)" -- -f
+    run sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)" -- -s
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
     assert_exists "/tmp/dotfiles"
 
-    run source "$DIRECTORY/.zshrc"
+    run zsh -c "source ~/.zshrc"
     [ "$status" -eq 0 ]
 }
