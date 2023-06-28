@@ -26,12 +26,12 @@ PATH="$PATH:$HOME/.local/bin"
 function bootstrap_reset() {
     unset -f yes_or_no error install_omz install_dnf install_flatpak install_apt \
         install_python install_node install_pkgs install_fzf install_gnome_extensions \
-        install_gnome_theme sync_gnome_settings sync_dotfiles install bootstrap_reset
+        install_gnome_theme sync_gnome_settings sync_dotfiles install bootstrap_reset handle_sigint
 }
 
 # In case the user quits the program in the critical section, we can
 # simply unlock the section before exiting.
-handle_sigint() {
+function handle_sigint() {
     bootstrap_reset
     exit 1
 }
