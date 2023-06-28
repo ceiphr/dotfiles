@@ -203,8 +203,7 @@ function install_pkgs() {
     # Install OS-specific packages
     if [[ "$ID" == "fedora" ]] || [[ $ID == "rhel" ]]; then
         install_dnf
-        # Note: Flatpak errors when run as root in CI. Don't install flatpak in CI.
-        [[ ! "$CI" ]] && install_flatpak
+        install_flatpak
     elif [[ $ID == "ubuntu" ]] || [[ "$CODESPACES" ]]; then
         install_apt
     else
@@ -238,7 +237,7 @@ function install() {
     source src/.zshenv
 
     # Install packages
-    install_pkgs
+    [[ ! "$CI" ]] && install_pkgs
 
     # Install various plugins and extensions
     install_fzf
@@ -261,6 +260,7 @@ function install() {
     fi
 }
 
+# TODO: Implement documented flags and --help
 if [ "$1" == "--force" ] || [ "$1" == "-f" ] || [ "$CODESPACES" ]; then
     install
 elif [ "$1" == "--sync" ] || [ "$1" == "-s" ]; then
