@@ -9,13 +9,13 @@
 
 <p align="center">Intended for Linux systems. Tested on Ubuntu 21.04 and Fedora 38.</p>
 
-## About The Project
+## About
 
-This project is a collection of dotfiles and scripts I use on my Linux systems.
-Depending on the system, it installs various packages from `apt`, `dnf`,
-`flatpak`, `gnome-extensions`, `npm` and `pip`. It also creates symlinks for
-various configuration files and directories from `src` to `$HOME` and will load
-GNOME settings using `dconf` if the system is running GNOME.
+This repository is a collection of dotfiles and scripts I use on my Linux
+systems. Depending on the system, it installs various packages from `apt`,
+`dnf`, `flatpak`, `gnome-extensions`, `npm` and `pip`. It also creates symlinks
+for various configuration files and directories from `src` to `$HOME` and will
+load GNOME settings using `dconf` if the system is running GNOME.
 
 The `extras` directory contains additional configuration files that are not
 symlinked by default. These files are optional and can only be installed
