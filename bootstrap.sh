@@ -156,14 +156,17 @@ function install_apt() {
 }
 
 function install_python() {
+    [[ -x "$(command -v python3)" ]] || (echo -e "${TXT_YELLOW}!${TXT_DEFAULT} Python3 not installed. Skipping Python packages." && return)
+
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing Python packages..."
     pip install --upgrade pip >/dev/null 2>&1 || error "Unable to update pip."
     pip install $(cat packages/pip) || error "Unable to install python packages."
 }
 
 function install_gnome_extensions() {
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME extensions..."
+    [[ -x "$(command -v gnome-extensions-cli)" ]] || (echo -e "${TXT_YELLOW}!${TXT_DEFAULT} gnome-extensions-cli not installed. Skipping GNOME extensions." && return)
 
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing GNOME extensions..."
     # Note: Must be run after install_python. gnome-extensions-cli is installed via pip.
     gnome-extensions-cli install $(cat packages/gnome-extensions) || error "Unable to install gnome extensions."
 }
@@ -183,7 +186,7 @@ function install_node() {
     # Install nvm
     [[ -d "$XDG_DATA_HOME"/nvm ]] || mkdir -p "$XDG_DATA_HOME"/nvm
     curl -s https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash || error "Unable to install nvm."
-    bash -c "source $XDG_DATA_HOME/nvm/nvm.sh && nvm install --lts" || error "Unable to install nvm."
+    (source "$XDG_DATA_HOME"/nvm/nvm.sh && nvm install --lts) || error "Unable to install nvm."
 
     # Install npm packages
     npm update -g || error "Unable to update npm."
@@ -208,8 +211,9 @@ function install_pkgs() {
 }
 
 function sync_gnome_settings() {
-    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing GNOME settings..."
+    [[ -x "$(command -v dconf)" ]] || (echo -e "${TXT_YELLOW}!${TXT_DEFAULT} dconf not installed. Skipping GNOME settings." && return)
 
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing GNOME settings..."
     # Load GNOME settings into dconf
     dconf load /org/gnome/shell/extensions/ <gnome-settings/extensions.conf
     dconf load /org/gnome/desktop/ <gnome-settings/desktop.conf
@@ -218,6 +222,8 @@ function sync_gnome_settings() {
 }
 
 function sync_dotfiles() {
+    [[ -x "$(command -v rsync)" ]] || (echo -e "${TXT_YELLOW}!${TXT_DEFAULT} rsync not installed. Skipping dotfiles." && return)
+
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Syncing dotfiles..."
     rsync -avh --no-perms src/ ~ >/dev/null 2>&1 || error "Unable to sync files."
 }
@@ -243,7 +249,7 @@ function install() {
     sync_dotfiles
 
     # Change default shell to zsh if it's not already
-    if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+    if [[ "$SHELL" != "/usr/bin/zsh" ]] && [[ ! "$CI" ]]; then
         echo -e "${TXT_GREEN}>${TXT_DEFAULT} Changing shell to zsh..."
         [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
         sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1 || error "Unable to change shell. Change it manually."
