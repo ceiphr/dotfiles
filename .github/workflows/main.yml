@@ -28,4 +28,4 @@ jobs:
                   TERM: linux # fix tput for tty issue work around
               run: |
                   bash --version
-                  bash -c "time bats test/test.bats"
+                  bash -c "time bats --verbose-run --print-output-on-failure test/test.bats"

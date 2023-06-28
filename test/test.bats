@@ -17,7 +17,7 @@ setup() {
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
 
-    run zsh -c "source ~/.zshrc"
+    run zsh -c "source $DIRECTORY/.zshrc"
     [ "$status" -eq 0 ]
 }
 
@@ -29,6 +29,12 @@ setup() {
     assert_output --partial "Done."
     assert_exists "/tmp/dotfiles"
 
-    run zsh -c "source ~/.zshrc"
+    run zsh -c "source $DIRECTORY/.zshrc"
     [ "$status" -eq 0 ]
+}
+
+teardown() {
+    if [ -d "/tmp/dotfiles" ]; then
+        rm -rf "/tmp/dotfiles"
+    fi
 }
