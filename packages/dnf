@@ -5,10 +5,13 @@ cargo
 code
 colordiff
 cowsay
+dnf-plugins-core
 exa
 ffmpeg
 firefox
+flatpak
 fzf
+git
 gjs
 gjs-devel
 glow
