@@ -230,7 +230,7 @@ function sync_dotfiles() {
 
 function install() {
     # Needs to be run first to set up environment variables
-    source .zshenv
+    source src/.zshenv
 
     # Install packages
     install_pkgs
