@@ -22,12 +22,17 @@ setup() {
 }
 
 @test "Remote dotfiles install." {
-    run sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)" -- -f
+    run remote-install.sh -f
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
     assert_output --partial "Done."
-    assert_exists "/tmp/dotfiles"
+
+    if [[ "$CI" ]]; then
+        assert_dir_exists "$DIRECTORY/.dotfiles"
+    else
+        assert_dir_exists "/tmp/dotfiles"
+    fi
 
     run zsh -c "source $DIRECTORY/.zshrc"
     [ "$status" -eq 0 ]
