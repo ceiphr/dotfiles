@@ -142,6 +142,8 @@ function install_dnf() {
 
 function install_flatpak() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing Flatpak packages..."
+
+    # Note: Must be run after install_dnf. flatpak is installed via dnf.
     flatpak update -y || error "Unable to update flatpak."
     flatpak remote-add -u --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo >/dev/null 2>&1 || error "Unable to add flathub remote."
     flatpak install -u -y $(cat packages/flatpak) || error "Unable to install flatpak packages."
@@ -201,7 +203,8 @@ function install_pkgs() {
     # Install OS-specific packages
     if [[ "$ID" == "fedora" ]] || [[ $ID == "rhel" ]]; then
         install_dnf
-        install_flatpak
+        # Note: Flatpak errors when run as root in CI. Don't install flatpak in CI.
+        [[ ! "$CI" ]] && install_flatpak
     elif [[ $ID == "ubuntu" ]] || [[ "$CODESPACES" ]]; then
         install_apt
     else
