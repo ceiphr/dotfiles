@@ -66,14 +66,21 @@ many other dotfiles repositories and projects. Here are some of them:
 -   [cowboy/dotfiles](https://github.com/cowboy/dotfiles)
 -   [alrra/dotfiles](https://github.com/alrra/dotfiles)
 -   [nicholastmosher/dotfiles](https://github.com/nicholastmosher/dotfiles)
+-   [phanviet/vim-monokai-pro](https://github.com/phanviet/vim-monokai-pro)
+-   [ceiphr/ee-framework-presets](https://github.com/ceiphr/ee-framework-presets)
+-   [rafaelmardojai/firefox-gnome-theme](https://github.com/rafaelmardojai/firefox-gnome-theme)
+-   [warningnonpotablewater/libinput-config](https://gitlab.com/warningnonpotablewater/libinput-config)
 
 If I've missed anyone, please let me know!
 
 ## Resources
 
+These are some of the resources I've used to build this project:
+
 -   [GNU Bash](https://www.gnu.org/software/bash/)
 -   [Bash Automated Testing System](https://github.com/bats-core/bats-core)
--   [Oh My Zsh](https://ohmyz.sh/)
+-   [Zsh](https://www.zsh.org/)
+-   [pre-commit](https://pre-commit.com/)
 -   [xdg-ninja](https://github.com/b3nj5m1n/xdg-ninja)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
