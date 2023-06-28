@@ -1,4 +1,5 @@
 1password
+ShellCheck
 ansible
 cargo
 code
@@ -26,7 +27,6 @@ redis
 ripgrep
 rsync
 rust
-shellcheck
 sl
 tailscale
 tldr
