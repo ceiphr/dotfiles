@@ -49,7 +49,7 @@ if [[ -x "$(command -v "git")" ]]; then
     # Run bootstrap script
     cd "$TARGET" || error "Error changing directory to $TARGET"
     chmod +x bootstrap.sh
-    sh bootstrap.sh "$@" || error "Error running bootstrap.sh"
+    sh bootstrap.sh "$@"
 
     # Cleanup
     cd "$CURRENT_DIR" || error "Error changing directory to $CURRENT_DIR"
