@@ -3,6 +3,10 @@
 SOURCE="https://github.com/ceiphr/dotfiles.git"
 TARGET="/tmp/dotfiles"
 
+if [[ "$CI" ]]; then
+    TARGET="$HOME/.dotfiles"
+fi
+
 # For echo -e color support.
 TXT_DEFAULT='\033[0m'
 TXT_GREEN='\033[0;32m'

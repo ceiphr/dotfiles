@@ -37,4 +37,8 @@ teardown() {
     if [ -d "/tmp/dotfiles" ]; then
         rm -rf "/tmp/dotfiles"
     fi
+
+    if [ -d "$DIRECTORY/.dotfiles" ]; then
+        rm -rf "$DIRECTORY/.dotfiles"
+    fi
 }
