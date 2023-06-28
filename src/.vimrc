@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-colorscheme monokai-pro
+colorscheme monokai_pro
 set nu
 
 " https://github.com/amix/vimrc

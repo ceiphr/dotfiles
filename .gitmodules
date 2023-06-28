@@ -1,3 +1,7 @@
+[submodule "src/.vim"]
+path = src/.vim
+url = https://github.com/phanviet/vim-monokai-pro.git
+
 [submodule "src/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output"]
 path = src/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output
 url = https://github.com/ceiphr/ee-framework-presets.git
