@@ -11,7 +11,7 @@ setup() {
 }
 
 @test "Standard dotfiles install." {
-    run bootstrap.sh -s
+    run bootstrap.sh -f
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
@@ -22,7 +22,7 @@ setup() {
 }
 
 @test "Remote dotfiles install." {
-    run sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)" -- -s
+    run sh -c "$(curl -sL https://ceiphr.io/dotfiles/install)" -- -f
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
