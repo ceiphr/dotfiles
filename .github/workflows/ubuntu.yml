@@ -23,6 +23,16 @@ jobs:
                   wget https://github.com/bats-core/bats-support/archive/master.zip -O support.zip
                   unzip support.zip
                   mv bats-support-master/* test/test_helper/bats-support/
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y \
+                      bash \
+                      zsh \
+                      git \
+                      rsync \
+
             - name: Run test on OS ${{ matrix.os }}
               env:
                   TERM: linux # fix tput for tty issue work around
