@@ -7,6 +7,7 @@ jobs:
             matrix:
                 fedora-version: ['36', '37', '38', '39']
         runs-on: ubuntu-latest
+        name: Fedora ${{ matrix.fedora-version }}
         steps:
             - name: Setup Podman
               run: |

@@ -118,7 +118,8 @@ function install_dnf() {
     sudo sh -c 'echo -e "[charm]\nname=Charm\nbaseurl=https://repo.charm.sh/yum/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo' >/dev/null 2>&1 || error "Unable to add Charm repo."
 
     # Lazygit
-    sudo dnf copr enable atim/lazygit -y || error "Unable to add Lazygit repo."
+    # Note: DNF5 doesn't support copr repos yet, so we'll skip this for now.
+    [[ ! "$CI" ]] && (sudo dnf copr enable atim/lazygit -y || error "Unable to add Lazygit repo.")
 
     # VSCode
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding VSCode repo..."
