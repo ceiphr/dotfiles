@@ -11,7 +11,7 @@ setup() {
 }
 
 @test "Standard dotfiles bootstrap." {
-    run bootstrap.sh -f
+    run bootstrap.sh --no-packages --unattended
     [ "$status" -eq 0 ]
 
     assert_output --partial "Syncing dotfiles..."
@@ -22,7 +22,7 @@ setup() {
 }
 
 @test "Remote dotfiles install." {
-    run remote-install.sh -f
+    run remote-install.sh --no-packages --unattended
     [ "$status" -eq 0 ]
 
     assert_output --partial "Installing dotfiles..."

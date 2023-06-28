@@ -5,8 +5,15 @@
 # MIT License
 # Copyright (c) 2023 Ari Birnbaum.
 
+# Options -> Configure from command line...
+INSTALL_PKGS=true
+SYNC_DOTFILES=true
+SYNC_GNOME=true
+UNATTENDED=false
+
 # For echo -e color support.
 TXT_DEFAULT='\033[0m'
+TXT_GREY='\033[2m'
 TXT_GREEN='\033[0;32m'
 TXT_YELLOW='\033[0;33m'
 TXT_RED='\033[0;31m'
@@ -15,6 +22,7 @@ TXT_BOLD='\033[1m'
 # https://no-color.org/
 if [[ -n "${NO_COLOR}" ]]; then
     TXT_DEFAULT='\033[0m'
+    TXT_GREY='\033[0m'
     TXT_YELLOW='\033[0m'
     TXT_GREEN='\033[0m'
     TXT_RED='\033[0m'
@@ -25,7 +33,7 @@ PATH="$PATH:$HOME/.local/bin"
 # Clean up after ourselves.
 function bootstrap_reset() {
     unset -f yes_or_no error install_omz install_dnf install_flatpak install_apt \
-        install_python install_node install_pkgs install_fzf install_gnome_extensions \
+        install_python install_node install_pkgs install_fzf install_gnome_extensions help \
         install_gnome_theme sync_gnome_settings sync_dotfiles install bootstrap_reset handle_sigint
 }
 
@@ -37,9 +45,6 @@ function handle_sigint() {
 }
 
 trap 'handle_sigint' INT
-
-# Pull latest changes from repo and submodules.
-git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes."
 
 # Error handling and cleanup.
 # Usage: echo "Hello world!" || error "Error message"
@@ -99,7 +104,7 @@ function install_omz() {
 function install_dnf() {
     # Add third-party repos.
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding third-party DNF repos..."
-    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+    [[ ! "$CODESPACES" ]] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
 
     # RPM Fusion
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding RPM Fusion repo..."
@@ -151,7 +156,7 @@ function install_flatpak() {
 
 function install_apt() {
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing APT packages..."
-    [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+    [[ ! "$CODESPACES" ]] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
 
     sudo apt-get update -y >/dev/null 2>&1 || error "Unable to update packages."
     sudo apt install -y $(cat packages/apt) || error "Unable to install packages."
@@ -233,38 +238,88 @@ function sync_dotfiles() {
 }
 
 function install() {
+    # Pull latest changes from repo and submodules.
+    git pull --recurse-submodules origin >/dev/null 2>&1 || error "Unable to pull latest changes."
+
     # Needs to be run first to set up environment variables
     source src/.zshenv
 
     # Install packages
-    [[ ! "$CI" ]] && install_pkgs
+    # Note: We don't install packages in CI. Erorr prone and not necessary.
+    [[ ! "$CI" ]] && ([[ "$INSTALL_PKGS" == true ]] && install_pkgs)
 
     # Install various plugins and extensions
     install_fzf
     install_omz
 
     # Install GNOME extensions and theme if running GNOME
-    if [[ "$DESKTOP_SESSION" == "gnome" ]]; then
+    if [[ "$DESKTOP_SESSION" == "gnome" ]] && [[ "$SYNC_GNOME" == true ]]; then
         install_gnome_extensions
         install_gnome_theme
         sync_gnome_settings
     fi
 
-    sync_dotfiles
+    [[ "$SYNC_DOTFILES" == true ]] && sync_dotfiles
 
     # Change default shell to zsh if it's not already
     if [[ "$SHELL" != "/usr/bin/zsh" ]] && [[ ! "$CI" ]]; then
         echo -e "${TXT_GREEN}>${TXT_DEFAULT} Changing shell to zsh..."
-        [ ! "$CODESPACES" ] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
+        [[ ! "$CODESPACES" ]] && echo -e "${TXT_GREEN}>${TXT_DEFAULT} Enter your password if prompted."
         sudo chsh "$(id -un)" --shell "/usr/bin/zsh" >/dev/null 2>&1 || error "Unable to change shell. Change it manually."
     fi
+
+    zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
+    echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 }
 
-# TODO: Implement documented flags and --help
-if [ "$1" == "--force" ] || [ "$1" == "-f" ] || [ "$CODESPACES" ]; then
+function help() {
+    echo -e "$(
+        cat <<-EOF
+Usage: $(basename "$0") [options]
+${TXT_GREY}
+Ari's dotfiles bootstrap script.
+${TXT_DEFAULT}
+Options:
+    -np, --no-packages    Skip installing packages
+    -ns, --no-symlinks    Skip syncing dotfiles
+    -ng, --no-gnome       Skip configuring GNOME
+    -u,  --unattended     Skip all prompts
+    -h,  --help           Show this help message and exit
+EOF
+    )"
+}
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    -np | --no-packages)
+        INSTALL_PKGS=false
+        shift
+        ;;
+    -ns | --no-symlinks)
+        SYNC_DOTFILES=false
+        shift
+        ;;
+    -ng | --no-gnome)
+        SYNC_GNOME=false
+        shift
+        ;;
+    -u | --unattended)
+        UNATTENDED=true
+        shift
+        ;;
+    -h | --help)
+        help
+        exit 0
+        ;;
+    *)
+        echo -e "${TXT_RED}!${TXT_DEFAULT} Unknown option: $1"
+        exit 1
+        ;;
+    esac
+done
+
+if [[ "$UNATTENDED" == true ]] || [[ "$CODESPACES" ]]; then
     install
-elif [ "$1" == "--sync" ] || [ "$1" == "-s" ]; then
-    sync_dotfiles
 else
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} This may overwrite existing files in your home directory."
     yes_or_no "Are you sure?" || (bootstrap_reset && exit 1)
@@ -272,7 +327,5 @@ else
 fi
 
 # Reload terminal
-zsh -c "source ~/.zshrc" >/dev/null 2>&1 || error "Unable to reload terminal."
-echo -e "${TXT_GREEN}>${TXT_DEFAULT} Done."
 bootstrap_reset
 exit 0
