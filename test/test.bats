@@ -10,7 +10,7 @@ setup() {
     DIRECTORY=$HOME
 }
 
-@test "Standard dotfiles install." {
+@test "Standard dotfiles bootstrap." {
     run bootstrap.sh -f
     [ "$status" -eq 0 ]
 
@@ -25,7 +25,7 @@ setup() {
     run remote-install.sh -f
     [ "$status" -eq 0 ]
 
-    assert_output --partial "Syncing dotfiles..."
+    assert_output --partial "Installing dotfiles..."
     assert_output --partial "Done."
 
     if [[ "$CI" ]]; then

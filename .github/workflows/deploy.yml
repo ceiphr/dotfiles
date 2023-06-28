@@ -31,7 +31,7 @@ jobs:
               run: |
                   mkdir -p ./_site
                   cp -a remote-install.sh ./_site/install
-                  echo "<meta http-equiv='refresh' content='0; url=https://github.com/ceiphr/dotfiles' />" > ./_site/index.html
+                  printf "<\!DOCTYPE html>\n<meta charset="utf-8">\n<title>Redirecting to github.com/ceiphr/dotfiles</title>\n<meta http-equiv='refresh' content='0; url=https://github.com/ceiphr/dotfiles'>\n<link rel="canonical" href="https://github.com/ceiphr/dotfiles">\n" > ./_site/index.html
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v1
 
