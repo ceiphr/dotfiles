@@ -133,7 +133,8 @@ function install_dnf() {
 
     # Tailscale
     echo -e "${TXT_YELLOW}+${TXT_DEFAULT} Adding Tailscale repo..."
-    sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo >/dev/null 2>&1 || error "Unable to add Tailscale repo."
+    # Note: DNF5 doesn't support config-manager yet, so we'll skip this for now.
+    [[ ! "$CI" ]] && (sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo || error "Unable to add Tailscale repo.")
 
     # Install packages
     echo -e "${TXT_GREEN}>${TXT_DEFAULT} Installing DNF packages..."
