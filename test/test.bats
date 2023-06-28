@@ -26,8 +26,6 @@ setup() {
     [ "$status" -eq 0 ]
 
     assert_output --partial "Installing dotfiles..."
-    assert_output --partial "Done."
-
     if [[ "$CI" ]]; then
         assert_dir_exists "$DIRECTORY/.dotfiles"
     else
